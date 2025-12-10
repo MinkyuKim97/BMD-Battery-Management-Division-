@@ -1,0 +1,22 @@
+{
+  "name": "server-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "server": "node server.js",
+    "client": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "type": "module",
+  "dependencies": {
+    "@dataconnect/generated": "file:src/dataconnect-generated",
+    "@vitejs/plugin-react": "^5.1.1",
+    "firebase": "^12.6.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "vite": "^7.2.2"
+  }
+}

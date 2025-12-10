@@ -1,0 +1,804 @@
+<mxfile host="65bd71144e">
+    <diagram id="A-PPUJgYEwZRYyL-Vx2U" name="Page-1">
+        <mxGraphModel dx="14813" dy="8840" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3840" pageHeight="3840" background="none" math="0" shadow="1">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="280" value="" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;rotation=-180;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;movable=0;resizable=0;rotatable=0;deletable=0;editable=0;locked=1;connectable=0;" parent="1" vertex="1">
+                    <mxGeometry x="-510" y="-3260" width="2100" height="1130" as="geometry"/>
+                </mxCell>
+                <mxCell id="160" value="" style="triangle;whiteSpace=wrap;html=1;rotation=90;fillColor=none;strokeWidth=5;dashed=1;movable=0;resizable=0;rotatable=0;deletable=0;editable=0;locked=1;connectable=0;" parent="1" vertex="1">
+                    <mxGeometry x="-1133" y="-2198.33" width="3390" height="4519.99" as="geometry"/>
+                </mxCell>
+                <mxCell id="228" value="" style="triangle;whiteSpace=wrap;html=1;rotation=90;fillColor=default;strokeWidth=5;dashed=1;movable=0;resizable=0;rotatable=0;deletable=0;editable=0;locked=1;connectable=0;" parent="1" vertex="1">
+                    <mxGeometry x="-1262" y="-727.42" width="3649.17" height="1339" as="geometry"/>
+                </mxCell>
+                <mxCell id="260" value="" style="shape=trapezoid;perimeter=trapezoidPerimeter;whiteSpace=wrap;html=1;fixedSize=1;rotation=-180;size=367.0000000000009;gradientColor=#CCCCFF;gradientDirection=west;fillColor=#CCFF99;movable=0;resizable=0;rotatable=0;deletable=0;editable=0;locked=1;connectable=0;" parent="1" vertex="1">
+                    <mxGeometry x="-497" y="-1900" width="2090" height="1080" as="geometry"/>
+                </mxCell>
+                <mxCell id="159" value="" style="triangle;whiteSpace=wrap;html=1;rotation=90;strokeWidth=5;movable=0;resizable=0;rotatable=0;deletable=0;editable=0;locked=1;connectable=0;" parent="1" vertex="1">
+                    <mxGeometry x="-506.09" y="-747.08" width="2142" height="2865.5" as="geometry"/>
+                </mxCell>
+                <mxCell id="202" value="" style="curved=1;endArrow=classic;html=1;exitX=0.69;exitY=0.07;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;exitPerimeter=0;" parent="1" source="182" target="96" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="-100" y="-1650" as="sourcePoint"/>
+                        <mxPoint x="-50" y="-1700" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint y="-1650"/>
+                            <mxPoint x="420" y="-1630"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="43" value="" style="edgeStyle=none;html=1;" parent="1" source="2" target="42" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="PRESENT" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1;fontSize=20;arcSize=0;sketch=1;curveFitting=1;jiggle=2;fillColor=#CCCCCC;" parent="1" vertex="1">
+                    <mxGeometry x="460" y="340" width="210" height="105" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="" style="endArrow=none;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="2" target="9" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="540" y="400" as="sourcePoint"/>
+                        <mxPoint x="540" y="240" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="12" value="" style="edgeStyle=none;html=1;" parent="1" source="9" target="11" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="" style="edgeStyle=none;html=1;" parent="1" source="9" target="11" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="" style="edgeStyle=none;html=1;" parent="1" source="9" target="11" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="" style="edgeStyle=none;html=1;" parent="1" source="9" target="11" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" style="edgeStyle=none;html=1;" parent="1" source="9" target="17" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="580" y="189.9999999999999" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="19" style="edgeStyle=none;html=1;" parent="1" source="9" target="18" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="Advanced tech?" style="rounded=0;whiteSpace=wrap;html=1;glass=0;" parent="1" vertex="1">
+                    <mxGeometry x="500" y="240" width="120" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" style="edgeStyle=none;html=1;" parent="1" source="11" target="18" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="41" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="11" target="35" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="Better Performance" style="whiteSpace=wrap;html=1;rounded=0;glass=0;" parent="1" vertex="1">
+                    <mxGeometry x="400" y="-10" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="34" value="" style="edgeStyle=none;html=1;" parent="1" source="17" target="33" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" value="" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="17" target="38" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="Being mobile" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="740" y="90" width="90" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="18" target="22" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="780" y="180" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="29" value="" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="18" target="30" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="No Battery -&amp;gt; using local energy" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="850" y="225" width="120" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="" style="edgeStyle=none;html=1;" parent="1" source="22" target="23" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="" style="edgeStyle=none;html=1;" parent="1" source="22" target="23" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" style="edgeStyle=none;html=1;" parent="1" source="22" target="26" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="Efficiency?" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="1030" y="105" width="110" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="Super-conductive system" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="1050" y="-40" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="Better energy managing system?" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="1215" y="60" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" value="Will be&amp;nbsp;&lt;div&gt;Heavier / Bigger&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="1220" y="230" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="32" value="" style="shape=flexArrow;endArrow=classic;startArrow=block;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;exitX=0.703;exitY=1.066;exitDx=0;exitDy=0;exitPerimeter=0;endSize=6;strokeWidth=1;" parent="1" source="22" target="30" edge="1">
+                    <mxGeometry width="100" height="100" relative="1" as="geometry">
+                        <mxPoint x="740" y="260" as="sourcePoint"/>
+                        <mxPoint x="870" y="270" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="36" value="" style="edgeStyle=none;html=1;" parent="1" source="33" target="35" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" value="Battery power" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="794.25" y="-30" width="120" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="35" value="Requires &#39;better&#39; battery" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="640" y="-150" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="39" style="edgeStyle=none;html=1;" parent="1" source="38" target="35" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" value="Will be&lt;div&gt;Lighter / Smaller&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;glass=0;" parent="1" vertex="1">
+                    <mxGeometry x="640" y="30" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="45" value="" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="42" target="46" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="270" y="120" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="48" style="edgeStyle=none;html=1;" parent="1" source="42" target="47" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="42" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-size: 12px; font-weight: 400;&quot;&gt;Lithium-ion battery dominant&lt;/span&gt;" style="whiteSpace=wrap;html=1;fontSize=20;rounded=1;fontStyle=1;arcSize=0;" parent="1" vertex="1">
+                    <mxGeometry x="150" y="250" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="50" value="" style="edgeStyle=none;html=1;" parent="1" source="46" target="49" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="52" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="46" target="51" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="46" value="Good? Bad?" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-165" y="120" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="55" style="edgeStyle=none;html=1;" parent="1" source="47" target="54" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="57" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="47" target="56" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="47" value="Also, Lithium Polymer battery" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="180" y="90" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="49" value="1. Safety Prob&lt;div&gt;2. Less flexible&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;align=left;" parent="1" vertex="1">
+                    <mxGeometry x="-280" y="-70" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="51" value="1. High energy efficiency&lt;div&gt;2. Low cost&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;align=left;" parent="1" vertex="1">
+                    <mxGeometry x="-260" y="-170" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="54" value="1. Even higher energy&lt;div&gt;2. Flexible&lt;/div&gt;&lt;div&gt;3. Light weight&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;align=left;" parent="1" vertex="1">
+                    <mxGeometry y="-60" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="56" value="1. High cost&lt;div&gt;2. Inflating issue&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;align=left;" parent="1" vertex="1">
+                    <mxGeometry x="110" y="-150" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="286" style="edgeStyle=none;html=1;" parent="1" source="59" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-40" y="-270" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="59" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-386.52" y="-220" width="716.52" height="280" as="geometry"/>
+                </mxCell>
+                <mxCell id="67" style="edgeStyle=none;html=1;" parent="1" source="62" target="66" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="62" value="Every battery has Pros/Cons" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="458.5" y="-250" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="63" style="edgeStyle=none;html=1;entryX=0.446;entryY=1.025;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="59" target="62" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="69" value="" style="edgeStyle=none;html=1;" parent="1" source="66" target="68" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="66" value="What&#39;s next?" style="ellipse;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;" parent="1" vertex="1">
+                    <mxGeometry x="458.5" y="-370" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="169" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="68" target="70" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="230" style="edgeStyle=none;html=1;" parent="1" source="68" target="229" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="232" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="247" target="231" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="68" value="&lt;b&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;Next Generation Battrery&lt;/font&gt;&lt;/b&gt;&lt;div&gt;1. Graphene Battery&lt;/div&gt;&lt;div&gt;2. Lithium - Air&lt;/div&gt;&lt;div&gt;3. Lithium - sulfur&lt;/div&gt;&lt;div&gt;4. Solid-state battery&lt;/div&gt;&lt;div&gt;5. Flow Battery&lt;/div&gt;&lt;div&gt;6. ...&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+                    <mxGeometry x="412" y="-556.83" width="217" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="74" value="" style="edgeStyle=none;html=1;" parent="1" source="70" target="73" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="70" value="&lt;i&gt;&lt;b&gt;&quot; Eventually,&amp;nbsp;&lt;/b&gt;&lt;/i&gt;&lt;div&gt;&lt;i&gt;&lt;b&gt;being more small / powerful / efficient / safer &quot;&lt;/b&gt;&lt;/i&gt;&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;align=center;sketch=1;curveFitting=1;jiggle=2;fillColor=#f8cecc;strokeColor=#b85450;fontSize=22;" parent="1" vertex="1">
+                    <mxGeometry x="335.01" y="-740" width="366.98" height="143" as="geometry"/>
+                </mxCell>
+                <mxCell id="76" value="" style="edgeStyle=none;html=1;" parent="1" source="73" target="75" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="73" value="For better battery,&lt;div&gt;what is required?&lt;/div&gt;" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="735" y="-690" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="75" value="???" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="754.25" y="-888.5" width="81.5" height="38.5" as="geometry"/>
+                </mxCell>
+                <mxCell id="89" value="" style="edgeStyle=none;html=1;" parent="1" source="77" target="88" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="91" value="" style="edgeStyle=none;html=1;" parent="1" source="77" target="90" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="170" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="77" target="79" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="77" value="Let&#39;s assums there&#39;s a&amp;nbsp;&lt;div&gt;&lt;b&gt;&lt;font&gt;&lt;i&gt;&quot;Ultimate Battery&quot;&lt;/i&gt;&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;fillColor=#B3B3B3;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="420" y="-944" width="201" height="94" as="geometry"/>
+                </mxCell>
+                <mxCell id="83" value="" style="edgeStyle=none;html=1;" parent="1" source="79" target="82" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="79" value="What can happen with it in the future?" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="458.5" y="-1060" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="87" value="" style="edgeStyle=none;html=1;" parent="1" source="82" target="86" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="272" value="" style="edgeStyle=none;html=1;" parent="1" source="82" target="271" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="82" value="&lt;b&gt;&lt;font style=&quot;font-size: 17px;&quot;&gt;Every electronic will be more&lt;/font&gt;&lt;/b&gt;&lt;div&gt;Small / Light / Safe / Strong / Long&lt;/div&gt;" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="343.5" y="-1150" width="350" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="102" value="" style="edgeStyle=none;html=1;" parent="1" source="86" target="101" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="185" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="86" target="186" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="230" y="-1380" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="86" value="&#39;Super-Micro&#39; Electronics" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="10" y="-1120" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="93" value="" style="edgeStyle=none;html=1;" parent="1" source="88" target="92" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="88" value="UTOPIA Side" style="whiteSpace=wrap;html=1;fillColor=#E6FFCC;" parent="1" vertex="1">
+                    <mxGeometry x="195" y="-1020" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="95" value="" style="edgeStyle=none;html=1;" parent="1" source="90" target="94" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="90" value="DYSTOPIA Side" style="whiteSpace=wrap;html=1;fillColor=#9999FF;" parent="1" vertex="1">
+                    <mxGeometry x="745" y="-1020" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="99" value="" style="edgeStyle=none;html=1;" parent="1" source="92" target="98" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="92" value="Anyone can access to high-tech" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="170" y="-1280" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="97" value="" style="edgeStyle=none;html=1;" parent="1" source="94" target="96" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="94" value="Only few can access to high-tech" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="750" y="-1180" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="109" value="" style="edgeStyle=none;html=1;" parent="1" source="96" target="108" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="96" value="Requires MORE ENERGY to make it" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="750" y="-1310" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="104" value="" style="edgeStyle=none;html=1;" parent="1" source="98" target="103" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="98" value="Accessibility" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="480.5" y="-1390" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="174" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="101" target="175" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="70" y="-1330" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="179" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="101" target="177" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="192" style="edgeStyle=none;html=1;entryX=0.167;entryY=0.957;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="101" target="191" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="101" value="In side of body" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-100" y="-1247.5" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="107" value="" style="edgeStyle=none;html=1;" parent="1" source="103" target="106" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="204" value="" style="edgeStyle=none;html=1;" parent="1" source="103" target="203" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="103" value="&lt;b&gt;&lt;font style=&quot;font-size: 20px;&quot;&gt;Possibilities&lt;/font&gt;&lt;/b&gt;&lt;div&gt;1. Solar panel accessbility&lt;/div&gt;&lt;div&gt;2. Battery performance increase&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+                    <mxGeometry x="404.25" y="-1660" width="230" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="105" style="edgeStyle=none;html=1;entryX=0.395;entryY=0.929;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="92" target="103" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="106" value="Echo-friendly" style="whiteSpace=wrap;html=1;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="370" y="-1470" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="108" value="Bad influence on the eco system" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="600" y="-1507.5" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="111" value="" style="shape=flexArrow;endArrow=classic;startArrow=classic;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="106" target="108" edge="1">
+                    <mxGeometry width="100" height="100" relative="1" as="geometry">
+                        <mxPoint x="955" y="-1410" as="sourcePoint"/>
+                        <mxPoint x="1055" y="-1510" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="121" value="" style="edgeStyle=none;html=1;" parent="1" source="116" target="120" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="116" value="&lt;b style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;font style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); font-size: 18px;&quot;&gt;1800: Alessandro Volta&#39;s first battery&lt;/font&gt;&lt;/b&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;br style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&#39;Voltaic Pile&#39;&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;This produced a continous direct current for the first time&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+                    <mxGeometry x="395" y="1710" width="340" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="123" value="" style="edgeStyle=none;html=1;" parent="1" source="120" target="122" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="120" value="&lt;div&gt;&#39;The Daniel Cell&#39;&lt;/div&gt;1836, more stable and lasted longer" style="whiteSpace=wrap;html=1;align=left;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="360" y="1410" width="210" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="122" value="&lt;b&gt;&lt;font style=&quot;font-size: 17px;&quot;&gt;Powering Telegraph Networks&lt;/font&gt;&lt;/b&gt;&lt;div&gt;Long-distance telegraph lines spread across continents -&amp;gt; it was powered by chemical batteris&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="578.5" y="1310" width="311.5" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="128" value="" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="125" target="129" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="685" y="1062.413793103448" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="125" value="&lt;b style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;font style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); font-size: 18px;&quot;&gt;1859: Lead-Acid, Rechargable battery&lt;/font&gt;&lt;/b&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;br style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;Gasten Plante invented&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;It was heavy, but robust and relatively cheap&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+                    <mxGeometry x="210" y="1160" width="340" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="126" style="edgeStyle=none;html=1;entryX=0.558;entryY=1.007;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="122" target="125" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="132" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="129" target="131" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="129" value="&lt;div&gt;&lt;b style=&quot;background-color: transparent; color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;font style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); font-size: 17px;&quot;&gt;Used in...&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;1. Early lighting systems&lt;/div&gt;&lt;div&gt;2. Railways and telecommunication backup&lt;/div&gt;&lt;div&gt;3.&lt;b&gt; Car starter battery&lt;/b&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="698.5" y="1060" width="311.5" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="130" value="" style="curved=1;endArrow=classic;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=1;entryDx=0;entryDy=0;" parent="1" source="129" target="9" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="620" y="830" as="sourcePoint"/>
+                        <mxPoint x="1060" y="530" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="1130" y="850"/>
+                            <mxPoint x="1180" y="390"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="134" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="131" target="133" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="131" value="&lt;span style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;Late 19C: First portable devices&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;br style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&#39;Leclanche cell&#39;, first &#39;dry cell&#39;&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;-&amp;gt; 1899, first Nickel-cadmium battery by Waldemar Junger&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+                    <mxGeometry x="140" y="930" width="340" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="141" style="edgeStyle=none;html=1;" parent="1" source="133" target="139" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="133" value="&lt;div&gt;&lt;b style=&quot;background-color: transparent; color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;font style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); font-size: 17px;&quot;&gt;Used in...&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;1. Flashlights&lt;br&gt;&lt;/div&gt;&lt;div&gt;2. Early portable radios&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="778.5" y="900" width="151.5" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="135" value="&lt;span style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;1950s: Alkaline Battery&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;br style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;AA, AAA batteries...&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+                    <mxGeometry x="140" y="760" width="230" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="136" style="edgeStyle=none;html=1;entryX=0.483;entryY=1.007;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="133" target="135" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="140" value="" style="edgeStyle=none;html=1;" parent="1" source="137" target="139" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="137" value="&lt;div&gt;&lt;b style=&quot;background-color: transparent; color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;font style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); font-size: 17px;&quot;&gt;Used in...&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;1.Portable Radios&lt;/div&gt;&lt;div&gt;2. Cassette Players&lt;/div&gt;&lt;div&gt;3. Remote controller&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="670" y="750" width="151.5" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="138" style="edgeStyle=none;html=1;entryX=0.008;entryY=0.606;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="135" target="137" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="142" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="139" target="17" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="139" value="Battery starts to aim &#39;mobility&#39;" style="ellipse;whiteSpace=wrap;html=1;align=center;rounded=0;fontStyle=1;sketch=1;curveFitting=1;jiggle=2;" parent="1" vertex="1">
+                    <mxGeometry x="920" y="560" width="150" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="147" style="edgeStyle=none;html=1;" parent="1" source="143" target="146" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="149" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="143" target="2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="156" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="143" target="42" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="143" value="&lt;span style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;1990s: Lithium-ion and modern battery&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;br style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;Much higher energy density&lt;/div&gt;&lt;div style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;Good cycle life&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+                    <mxGeometry x="130" y="570" width="340" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="145" style="edgeStyle=none;html=1;entryX=0.475;entryY=1.036;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="137" target="143" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="148" style="edgeStyle=none;html=1;" parent="1" source="146" target="139" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="146" value="&lt;div&gt;&lt;b style=&quot;background-color: transparent; color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251);&quot;&gt;&lt;font style=&quot;color: rgb(63, 63, 63); scrollbar-color: rgb(226, 226, 226) rgb(251, 251, 251); font-size: 17px;&quot;&gt;Used in...&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;1.Laptop&lt;br&gt;&lt;/div&gt;&lt;div&gt;2. Mobile Phone&lt;/div&gt;&lt;div&gt;3. Digital camera&lt;/div&gt;&lt;div&gt;-&amp;gt;&lt;/div&gt;&lt;div&gt;Device which requires higher power&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=left;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="620" y="540" width="230" height="105" as="geometry"/>
+                </mxCell>
+                <mxCell id="153" value="" style="edgeStyle=none;html=1;entryX=0.037;entryY=0.677;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryPerimeter=0;" parent="1" source="139" target="154" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1400" y="642.7374301675977" as="targetPoint"/>
+                        <mxPoint x="1080" y="506.8800000000001" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="154" value="&lt;span&gt;&lt;i&gt;Always, the battery was aimmed&amp;nbsp;&lt;/i&gt;&lt;/span&gt;&lt;div&gt;&lt;span&gt;&lt;i&gt;to use energy whenever/whenever we need&lt;/i&gt;&lt;/span&gt;&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;align=center;sketch=1;curveFitting=1;jiggle=2;fontSize=18;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="1480" y="460" width="420" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="158" value="" style="curved=1;endArrow=classic;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="154" target="35" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="1410" y="460" as="sourcePoint"/>
+                        <mxPoint x="930" y="-160" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="1460" y="140"/>
+                            <mxPoint x="1160" y="-110"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="172" value="" style="endArrow=none;dashed=1;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;strokeWidth=5;" parent="1" source="70" target="77" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="360" y="-680" as="sourcePoint"/>
+                        <mxPoint x="410" y="-730" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="218" style="edgeStyle=none;html=1;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" parent="1" source="175" target="215" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="175" value="Battery Driven Joint Enhance" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-70" y="-1357.5" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="181" value="" style="edgeStyle=none;html=1;entryX=0.442;entryY=0.969;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="177" target="182" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="15" y="-1440" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="216" style="edgeStyle=none;html=1;" parent="1" source="177" target="215" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="177" value="Artificial Bio / Organ" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="-210" y="-1357.5" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="209" value="" style="edgeStyle=none;html=1;" parent="1" source="182" target="208" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="221" style="edgeStyle=none;html=1;" parent="1" source="182" target="219" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="182" value="&#39; Battery will save us &#39;" style="ellipse;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;fontStyle=3;fillColor=#CCCCCC;" parent="1" vertex="1">
+                    <mxGeometry x="-180" y="-1587.5" width="150" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="183" style="edgeStyle=none;html=1;entryX=0.575;entryY=0.956;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="175" target="182" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="184" value="" style="curved=1;endArrow=classic;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="88" target="182" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="-270" y="-1100" as="sourcePoint"/>
+                        <mxPoint x="-20" y="-1490" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="-150" y="-940"/>
+                            <mxPoint x="-300" y="-1350"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="188" value="" style="edgeStyle=none;html=1;" parent="1" source="186" target="187" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="190" value="" style="edgeStyle=none;html=1;" parent="1" source="186" target="189" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="186" value="Out side of body" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="-1370" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="187" value="Higher performance&lt;div&gt;Exo-skeleton&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="30" y="-1600" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="189" value="Battery Driven AI Robot body" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="150" y="-1507.5" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="197" value="" style="edgeStyle=none;html=1;" parent="1" source="191" target="196" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="211" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="191" target="210" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="222" style="edgeStyle=none;html=1;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" parent="1" source="191" target="219" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="80" y="-1719.9999999999995" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="262" value="" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="191" target="263" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="974.2499999999991" y="-1890" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="276" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="191" target="275" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="191" value="&lt;b&gt;&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;Battery Driven Huamn&lt;/font&gt;&lt;/b&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;-&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;(Able to replace battery)&lt;/font&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;fillColor=#000000;fontSize=21;fontColor=#FFFFFF;sketch=1;curveFitting=1;jiggle=2;labelBackgroundColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="791.5" y="-1816.56" width="358.5" height="86.56" as="geometry"/>
+                </mxCell>
+                <mxCell id="199" value="" style="edgeStyle=none;html=1;" parent="1" source="196" target="198" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="196" value="Endless Labor&lt;div&gt;by replacing battery&lt;/div&gt;" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="890" y="-1610" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="201" value="" style="edgeStyle=none;html=1;" parent="1" source="198" target="200" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="212" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="198" target="210" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="198" value="More intense hierarchy structure" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="950" y="-1460" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="200" value="Geology" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="1150" y="-1530" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="266" style="edgeStyle=none;html=1;" parent="1" source="203" target="265" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="203" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;&lt;i style=&quot;&quot;&gt;Use electricity &lt;b&gt;&#39;whenever/wherever&#39; &lt;/b&gt;we want&lt;/i&gt;&lt;/font&gt;" style="whiteSpace=wrap;html=1;align=center;sketch=1;curveFitting=1;jiggle=2;" parent="1" vertex="1">
+                    <mxGeometry x="318.5" y="-1790" width="401.5" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="205" value="" style="curved=1;endArrow=classic;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0.93;exitY=0.014;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="35" target="66" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="690" y="-190" as="sourcePoint"/>
+                        <mxPoint x="740" y="-240" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="650" y="-150"/>
+                            <mxPoint x="650" y="-290"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="208" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;4. Earth after Humans&lt;/font&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(63, 63, 63); font-style: normal; font-weight: 400; background-color: transparent;&quot;&gt;Nonhuman phenomenology&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-style: normal; font-weight: 400;&quot;&gt;Postnatural organisms&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-style: normal; font-weight: 400;&quot;&gt;Cyclonopedia&lt;/span&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;fillColor=#CCCCCC;sketch=1;curveFitting=1;jiggle=2;fontStyle=3;align=left;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="-400" y="-1725" width="180" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="210" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;1. Humans before Earth&lt;/font&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-style: normal; font-weight: 400;&quot;&gt;Teleology&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-style: normal; font-weight: 400;&quot;&gt;Exceptionalism&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-style: normal; font-weight: 400;&quot;&gt;-&amp;gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-style: normal; font-weight: 400;&quot;&gt;Strengthening the hierarchy&lt;/span&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;fillColor=#CCCCCC;sketch=1;curveFitting=1;jiggle=2;fontStyle=3;align=left;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="1210" y="-1770" width="210" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="220" style="edgeStyle=none;html=1;" parent="1" source="215" target="219" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="215" value="Apply it to other oraganism&lt;div&gt;Animals, organics...&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="-360" y="-1550" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="219" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;3. Humans after Earth&lt;/font&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-style: normal; font-weight: 400;&quot;&gt;Transhumanism&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-style: normal; font-weight: 400;&quot;&gt;Posthumanism&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-style: normal; font-weight: 400;&quot;&gt;Accelerationism&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: rgb(63, 63, 63); font-family: monospace; font-size: 0px; font-style: normal; font-weight: 400; text-wrap-mode: nowrap; background-color: transparent;&quot;&gt;Po%Pos&lt;/span&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;fillColor=#CCCCCC;sketch=1;curveFitting=1;jiggle=2;fontStyle=3;align=left;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="-140" y="-1800" width="180" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="236" value="" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="229" target="237" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-208.2785876333437" y="-650" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="239" style="edgeStyle=none;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="229" target="238" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="229" value="&lt;b&gt;&lt;i&gt;What if the development of battery technology is biased in one side?&lt;/i&gt;&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;align=center;sketch=1;curveFitting=1;jiggle=2;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=22;" parent="1" vertex="1">
+                    <mxGeometry x="-326.98" y="-626.83" width="366.98" height="143" as="geometry"/>
+                </mxCell>
+                <mxCell id="250" value="" style="edgeStyle=none;html=1;" parent="1" source="231" target="249" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="231" value="&lt;b&gt;&lt;i&gt;What if the battery fails to develop beyond current technology level?&lt;/i&gt;&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;align=center;sketch=1;curveFitting=1;jiggle=2;fillColor=#f8cecc;strokeColor=#b85450;fontSize=22;" parent="1" vertex="1">
+                    <mxGeometry x="1220" y="-633.33" width="366.98" height="143" as="geometry"/>
+                </mxCell>
+                <mxCell id="233" value="" style="shape=crossbar;whiteSpace=wrap;html=1;rounded=1;strokeWidth=10;strokeColor=default;" parent="1" vertex="1">
+                    <mxGeometry x="-280" y="340" width="720" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="234" value="" style="shape=crossbar;whiteSpace=wrap;html=1;rounded=1;strokeWidth=10;" parent="1" vertex="1">
+                    <mxGeometry x="690" y="340" width="720" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="237" value="What if:&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;&lt;br&gt;&lt;/font&gt;Performannce increases,&lt;div&gt;but the size get bigger&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+                    <mxGeometry x="-460" y="-740" width="160" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="242" value="" style="edgeStyle=none;html=1;" parent="1" source="238" target="241" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="244" value="" style="edgeStyle=none;html=1;" parent="1" source="238" target="243" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="238" value="What if:&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;&lt;br&gt;&lt;/font&gt;Every asepect improves,&lt;/div&gt;&lt;div&gt;except &#39;safety&#39;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+                    <mxGeometry x="-650" y="-610" width="160" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="241" value="Reaches &#39;~~ Punk era&#39;" style="whiteSpace=wrap;html=1;align=center;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="-800" y="-870" width="160" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="245" style="edgeStyle=none;html=1;" parent="1" source="243" target="241" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-689.9999999999995" y="-720" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="243" value="&lt;p class=&quot;p1&quot;&gt;Technology itself becomes the priority, and humans are pushed to second place.&lt;/p&gt;" style="whiteSpace=wrap;html=1;align=left;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="-900" y="-730" width="170" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="246" value="" style="edgeStyle=segmentEdgeStyle;endArrow=classic;html=1;curved=0;rounded=0;endSize=8;startSize=8;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" parent="1" source="241" target="219" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="-680" y="-890" as="sourcePoint"/>
+                        <mxPoint x="-600" y="-1060" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="-700" y="-1600"/>
+                            <mxPoint x="-520" y="-1600"/>
+                            <mxPoint x="-520" y="-1775"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="248" value="" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="68" target="247" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="629" y="-493" as="sourcePoint"/>
+                        <mxPoint x="1190" y="-498" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="247" value="Failure to commercialize the next gen battery" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="1060" y="-591.83" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="252" value="" style="edgeStyle=none;html=1;" parent="1" source="249" target="253" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="1746.9800000000005" y="-842.3299999999999" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="255" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="249" target="254" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="249" value="Lithium is the 33rd most abundant element on Earth&lt;div&gt;But, still possible to use it all up&lt;/div&gt;" style="whiteSpace=wrap;html=1;fontSize=22;fillColor=#f8cecc;strokeColor=#b85450;sketch=1;curveFitting=1;jiggle=2;" parent="1" vertex="1">
+                    <mxGeometry x="1580" y="-884" width="320" height="157" as="geometry"/>
+                </mxCell>
+                <mxCell id="253" value="The Lithium recycling industry develops" style="whiteSpace=wrap;html=1;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="1600" y="-1145" width="190" height="95" as="geometry"/>
+                </mxCell>
+                <mxCell id="254" value="Find ways to extract Lithium from other planets" style="whiteSpace=wrap;html=1;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="2040" y="-1140" width="240" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="263" value="Possibility:&lt;div&gt;No life without battery&lt;/div&gt;" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="914.25" y="-2000" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="268" value="" style="edgeStyle=none;html=1;" parent="1" source="265" target="267" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="265" value="Battery Singularity" style="ellipse;whiteSpace=wrap;html=1;sketch=1;curveFitting=1;jiggle=2;" parent="1" vertex="1">
+                    <mxGeometry x="478.5" y="-1910" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="270" style="edgeStyle=none;html=1;" parent="1" source="267" target="269" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="267" value="Also requires&lt;div&gt;Battery &#39;Charging&#39; singularity&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="459.25" y="-2040" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="269" value="If no charging singularity?&lt;div&gt;-&amp;gt;&lt;/div&gt;&lt;div&gt;Extreme battery value increase&lt;/div&gt;&lt;div&gt;Demand &amp;gt;&amp;gt;&amp;gt;&amp;gt; Supply&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="-2060" width="190" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="271" value="Flawless infinite energy storing battery" style="whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="540" y="-1250" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="273" value="Advanced, but still limitation&lt;div&gt;(Expectation: x10 better than now)&lt;/div&gt;" style="whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="330" y="-1250" width="190" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="274" style="edgeStyle=none;html=1;entryX=0.543;entryY=1.011;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="82" target="273" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="278" value="" style="edgeStyle=none;html=1;" parent="1" source="275" target="277" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="275" value="Why using battery driven human, instead of machine?" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="1100" y="-1990" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="277" value="Robot/Machine&#39;s limitation:&amp;nbsp;&lt;div&gt;Still can&#39;t apply to every circumstance&lt;/div&gt;" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="1130" y="-2090" width="230" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="279" value="" style="shape=flexArrow;endArrow=classic;startArrow=classic;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="98" target="94" edge="1">
+                    <mxGeometry width="100" height="100" relative="1" as="geometry">
+                        <mxPoint x="600" y="-1309" as="sourcePoint"/>
+                        <mxPoint x="710" y="-1346" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="680" y="-1280"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="281" value="" style="endArrow=none;dashed=1;html=1;strokeWidth=10;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="491" y="-3060" as="sourcePoint"/>
+                        <mxPoint x="491" y="-3590" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="282" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Imagination No.1&lt;/font&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-style: normal; font-weight: 400;&quot;&gt;What it the &#39;Ultimate battery&#39; itself had a high value and need to reuse it for next generations?&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-style: normal; font-weight: 400;&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-style: normal; font-weight: 400;&quot;&gt;Battery might be exetremly important, and recycling becomes a majoy industry, they might start extracting battries from dead body&lt;/span&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;fillColor=none;sketch=1;curveFitting=1;jiggle=2;fontStyle=3;align=left;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="-910" y="-2470" width="371.5" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="285" value="Lithium Battery Recycling Industry" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-100" y="-330" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="287" value="" style="edgeStyle=segmentEdgeStyle;endArrow=classic;html=1;curved=0;rounded=0;endSize=8;startSize=8;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=-0.011;entryY=0.389;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="285" target="282" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="-1262" y="-225" as="sourcePoint"/>
+                        <mxPoint x="230" y="-2230" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="-960" y="-285"/>
+                            <mxPoint x="-960" y="-2430"/>
+                            <mxPoint x="-914" y="-2430"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="288" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Imagination No.2&lt;/font&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-style: normal; font-weight: 400;&quot;&gt;The Ultimate Battery -&amp;gt; replace body parts/organs with electronics/machines&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-style: normal; font-weight: 400;&quot;&gt;Because, we could use electricity/energy anytime and anywhere, as much as we want&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-style: normal; font-weight: 400;&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-style: normal; font-weight: 400;&quot;&gt;If someone steal the energy from someone&#39;s battery, they could simply die&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-style: normal; font-weight: 400;&quot;&gt;(Like wireless NFC can take money from your card)&lt;/span&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;fillColor=none;sketch=1;curveFitting=1;jiggle=2;fontStyle=3;align=left;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="-909.25" y="-2290" width="369.25" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="289" value="Additional Ideas" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="-784.25" y="-2560" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="310" style="edgeStyle=none;html=1;" parent="1" source="290" target="309" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="290" value="&lt;p style=&quot;line-height: 100%;&quot; class=&quot;p1&quot;&gt;&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;[Government: Battery Management Division]&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;line-height: 100%;&quot; class=&quot;p1&quot;&gt;&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;Battery Replacement Order&lt;/font&gt;&lt;/p&gt;" style="whiteSpace=wrap;html=1;fillColor=#000000;fontSize=29;fontColor=#FFFFFF;sketch=1;curveFitting=1;jiggle=2;labelBackgroundColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="155" y="-2970" width="710" height="166.56" as="geometry"/>
+                </mxCell>
+                <mxCell id="297" value="" style="edgeStyle=none;html=1;" parent="1" source="291" target="296" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="303" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="291" target="302" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="291" value="&lt;b&gt;&lt;font style=&quot;color: rgb(255, 255, 255);&quot;&gt;Battery Driven Huamn&lt;/font&gt;&lt;/b&gt;" style="whiteSpace=wrap;html=1;fillColor=#000000;fontSize=21;fontColor=#FFFFFF;sketch=1;curveFitting=1;jiggle=2;labelBackgroundColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="339.25" y="-2220" width="358.5" height="86.56" as="geometry"/>
+                </mxCell>
+                <mxCell id="293" value="" style="endArrow=none;dashed=1;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=10;" parent="1" source="191" target="291" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="570" y="-2090" as="sourcePoint"/>
+                        <mxPoint x="620" y="-2140" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="299" value="" style="edgeStyle=none;html=1;" parent="1" source="296" target="298" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="296" value="The &#39;Ultimate Battery&#39; attached to the human body/inside emits electrical signal&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;div&gt;-&amp;gt; Enhance Performance &amp;amp;&amp;amp; Replace sleeping, eating, resting&lt;/div&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;fontSize=21;labelBackgroundColor=none;align=left;" parent="1" vertex="1">
+                    <mxGeometry x="321.5" y="-2480" width="398.5" height="176.72" as="geometry"/>
+                </mxCell>
+                <mxCell id="307" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="298" target="302" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="298" value="Productivity/Work efficiency increase" style="whiteSpace=wrap;html=1;fontSize=21;align=center;labelBackgroundColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="383.87" y="-2580" width="270.75" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="300" value="Every 10 years(average) or 5 years(heavy use),&lt;div&gt;reaches the battry&#39;s capacity and needs to be replaced&lt;/div&gt;" style="whiteSpace=wrap;html=1;fontSize=21;align=center;labelBackgroundColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-335.75" y="-2510" width="530.75" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="301" style="edgeStyle=none;html=1;entryX=0.539;entryY=0.94;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="291" target="300" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="305" style="edgeStyle=none;html=1;" parent="1" source="302" target="304" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="302" value="&lt;b&gt;Government Side:&lt;/b&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;For national growth, the government wants more citizens to use the battery consistantly and guides toward the competetive development&lt;/div&gt;" style="whiteSpace=wrap;html=1;fontSize=21;align=center;labelBackgroundColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="870" y="-2620" width="530.75" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="308" style="edgeStyle=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="304" target="290" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="304" value="Monitoring citizen&#39;s battery usage and tendency&lt;div&gt;Periodically inform/warn battery replacement&lt;/div&gt;" style="whiteSpace=wrap;html=1;fontSize=21;align=center;labelBackgroundColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="245.25" y="-2750" width="530.75" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="306" style="edgeStyle=none;html=1;entryX=0.349;entryY=0.94;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="300" target="304" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="309" value="If disobey the order, citizens will be subjected to forcible enforement by the Battery Management Division&lt;div&gt;(Imagine DEA in reaal life)&lt;/div&gt;" style="whiteSpace=wrap;html=1;fontSize=16;align=center;labelBackgroundColor=none;dashed=1;" parent="1" vertex="1">
+                    <mxGeometry x="-288.49" y="-2946.7200000000003" width="290" height="120" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
