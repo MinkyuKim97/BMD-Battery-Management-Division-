@@ -429,7 +429,7 @@ export function App() {
           <div>
             <div className="systemTitle">BMD</div>
             <div className="systemSubtitle">
-              Battery Management Division / Member Access
+              Battery Management Division
             </div>
           </div>
           <div className="panelHeaderStatus">{todayStr}</div>
