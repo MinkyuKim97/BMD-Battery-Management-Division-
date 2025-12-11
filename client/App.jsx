@@ -272,13 +272,13 @@ export function App() {
   function handleConnect(e) {
     e?.preventDefault?.();
     if (!membersLoaded) {
-      setConnectError("Registry is still loading. Retry in a moment.");
+      // setConnectError("Registry is still loading. Retry in a moment.");
       return;
     }
 
     const full = buildFullName(firstNameInput, lastNameInput);
     if (!full) {
-      setConnectError("First Name / Last Name 을 모두 입력하세요.");
+      // setConnectError("First Name / Last Name");
       setNewMemberName("");
       setCurrentName("");
       return;
@@ -295,9 +295,8 @@ export function App() {
     } else {
       setCurrentName("");
       setNewMemberName(full);
-      setConnectError(
-        `"${full}" 에 해당하는 기록이 없습니다. 아래에서 신규 등록을 진행해주세요.`
-      );
+      // setConnectError(
+      // );
       setCreateError("");
       setCreateCountry("");
       setCreateBirth("");
@@ -312,14 +311,14 @@ export function App() {
 
     const full = buildFullName(firstNameInput, lastNameInput);
     if (!full) {
-      setConnectError("삭제하려면 First / Last Name 을 모두 입력하세요.");
+      setConnectError("");
       return;
     }
 
     const target = normalizeName(full);
     const match = members.find((m) => normalizeName(m.name) === target) || null;
     if (!match) {
-      setConnectError(`"${full}" 에 해당하는 기록이 없어 삭제할 수 없습니다.`);
+      setConnectError(``);
       return;
     }
 
@@ -334,11 +333,11 @@ export function App() {
         setCurrentName("");
       }
       setNewMemberName("");
-      setConnectError(`"${match.name}" 기록이 삭제되었습니다.`);
+      // setConnectError(`"${match.name}"`);
       setCreateError("");
     } catch (e) {
       console.error("delete member failed:", e);
-      setConnectError(e?.message || "Failed to delete member.");
+      // setConnectError(e?.message || "Failed to delete member.");
     }
   }
 
