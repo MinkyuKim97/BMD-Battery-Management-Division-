@@ -1,7 +1,5 @@
-// src/App.jsx
 
-// import "../style.css";  // 예전 스타일은 사용 안 함
-import "./App.css";
+import "../style.css";
 
 import { useEffect, useMemo, useState } from "react";
 import { db } from "../firebaseConfig.js";
