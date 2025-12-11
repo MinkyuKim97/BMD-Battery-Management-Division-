@@ -91,7 +91,7 @@ function formatDateTime(value) {
   return d.toLocaleString();
 }
 
-function computeLifetimeProgress(member) {
+function calPercentage(member) {
   const startDate = epochToDate(member?.lastBatteryReplacementDate);
   const endDate = epochToDate(member?.batteryDueDate);
   if (!startDate || !endDate) return null;
@@ -112,7 +112,7 @@ function computeLifetimeProgress(member) {
 }
 
 // tendency를 0~10으로 받아서 lastReplacement에서 1~2개월 사이로 due date 계산
-function computeDueDateFromLastReplacement(lastEpoch, tendencyRaw) {
+function calDueDateWithTendency(lastEpoch, tendencyRaw) {
   if (lastEpoch == null) return null;
   const lastDate = new Date(lastEpoch * 1000);
   if (Number.isNaN(lastDate.getTime())) return null;
@@ -208,7 +208,7 @@ export function App() {
   }, [members, currentName]);
 
   const mainProgress = useMemo(
-    () => computeLifetimeProgress(currentMember),
+    () => calPercentage(currentMember),
     [currentMember]
   );
 
@@ -250,7 +250,7 @@ export function App() {
     const lastEpoch = currentMember.lastBatteryReplacementDate;
     const tendencyVal = currentMember.tendency;
 
-    const recomputed = computeDueDateFromLastReplacement(lastEpoch, tendencyVal);
+    const recomputed = calDueDateWithTendency(lastEpoch, tendencyVal);
     if (recomputed == null) return;
 
     const currentDue = currentMember.batteryDueDate;
@@ -368,7 +368,7 @@ export function App() {
       if (tendencyNum < 0) tendencyNum = 0;
       if (tendencyNum > 10) tendencyNum = 10;
 
-      const dueEpoch = computeDueDateFromLastReplacement(lastEpoch, tendencyNum);
+      const dueEpoch = calDueDateWithTendency(lastEpoch, tendencyNum);
       if (dueEpoch == null) {
         setCreateError("Battery due date 계산에 실패했습니다.");
         setCreating(false);
@@ -662,7 +662,7 @@ export function App() {
         <div className="othersGridWrapper">
           <div className="othersGrid">
             {otherMembers.map((m) => {
-              const p = computeLifetimeProgress(m);
+              const p = calPercentage(m);
               const percent =
                 p && Number.isFinite(p.percent) ? p.percent : null;
               const percentText =
