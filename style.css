@@ -1,469 +1,330 @@
-* {
+/* 전역 레이아웃 */
+
+html,
+body,
+#root {
   margin: 0;
   padding: 0;
-}
-
-:root {
-  --bg: #0b0c10;
-  --panel: rgba(255, 255, 255, 0.08);
-  /* --stroke: rgba(255, 255, 255, 0.14); */
-  --stroke: rgba(255, 255, 255, 1);
-  --text: rgba(255, 255, 255, 0.92);
-  --danger: rgba(255, 90, 90, 1);
-  --dangerBg: rgba(255, 90, 90, 0.14);
-  --radius: 16px;
-  --bgColor: #080808;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  color: #fff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", sans-serif;
 }
 
 body {
-
-  background-color: var(--bgColor);
-  color: var(--text);
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
-    Helvetica, Arial;
-}
-
-.totalDiv {
-  height: 100vh;
-  width: 100%;
-  display: flex;
   overflow: hidden;
 }
 
-.leftDiv {
-  width: 20vw;
-  min-width: 200px;
-  /* max-width: 360px; */
-  height: 100%;
-  border-right: 1px solid var(--stroke);
-  padding: 20px;
+/* 기본 패널 / 레이아웃 */
+
+.appShell {
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
+  padding: 8px;
 }
 
-.leftHeader {
+.panel {
+  border: 1px solid #444;
+  padding: 8px;
+  background: #050505;
+}
+
+.panel-main {
+  flex: 0 0 auto;
+}
+
+.panel-others {
+  flex: 1;
+  min-height: 0;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  flex-direction: column;
 }
 
-.leftHeaderTitles {
+/* 헤더 */
+
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.systemTitle {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.systemSubtitle {
+  font-size: 11px;
+  color: #ccc;
+}
+
+.panelHeaderStatus {
+  text-align: right;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* 상단 패널 내부 split */
+
+.panelBody-split {
+  display: grid;
+  grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
+  gap: 8px;
+}
+
+/* 서브 카드 */
+
+.sectionCard {
+  border: 1px solid #444;
+  padding: 8px;
+}
+
+.sectionTitle {
+  font-size: 12px;
+  margin: 0 0 4px;
+}
+
+/* Identity form 쪽 */
+
+.identityForm {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  font-size: 11px;
 }
 
-.leftHeaderTitle {
-  font-weight: 700;
-  font-size: 30px;
+.input {
+  padding: 4px 6px;
+  font-size: 13px;
+  background: #111;
+  border: 1px solid #555;
+  color: #fff;
+  outline: none;
 }
 
-
-.roomsList {
-  flex: 1;
-  overflow-y: auto;
-  padding-right: 6px;
+.input:focus {
+  border-color: #fff;
 }
 
-.roomsList::-webkit-scrollbar,
-.messagesScroll::-webkit-scrollbar {
-  width: 10px;
-}
-
-.roomsList::-webkit-scrollbar-thumb,
-.messagesScroll::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.18);
-  border-radius: 999px;
-  border: 2px solid rgba(0, 0, 0, 0.15);
-}
-
-.roomsList::-webkit-scrollbar-track,
-.messagesScroll::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 999px;
-}
-
-.roomCard {
-  width: 100%;
-  text-align: left;
-  /* border: 1px solid var(--stroke); */
-  border: 1px solid  rgba(116, 116, 116, 0.35);
-  background: var(--panel);
-  color: var(--text);
-  padding: 12px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  transition: transform 120ms ease, background 120ms ease, border 120ms ease;
-}
-
-.roomCard:hover {
-  /* transform: translateY(-1px); */
-  background: rgba(255, 255, 255, 0.11);
-  border-color: rgba(255, 255, 255, 0.22);
-}
-
-.roomCard.active {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgb(255, 255, 255);
-}
-
-.roomTopRow {
+.identityActions {
   display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.roomTitle {
-  font-weight: 700;
-  font-size: 18px;
-}
-
-.roomTitleFlex {
-  flex: 1;
-}
-
-.roomDate {
-  font-size: 12px;
-  opacity: 0.5;
-  margin-top: 3px;
-}
-
-.badge {
-  font-size: 12px;
-  padding: 4px 8px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.75);
-  white-space: nowrap;
-}
-
-.badge.full {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.28);
-  color: rgba(255, 255, 255, 0.92);
-}
-
-.iconBtn {
-  width: 100%;
-  padding: 2px 15px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.01);
-  color: var(--text);
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.iconBtn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.rightDiv {
-  /* width: calc(100% - 320px); */
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.chatHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--stroke);
-  background: rgba(0, 0, 0, 0.14);
-  backdrop-filter: blur(10px);
-}
-
-.headerTitle {
-  font-size: 20px;
-  font-weight: 800;
-}
-
-.headerActions {
-  display: flex;
-  gap: 8px;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
 }
 
 .btn {
-  padding: 9px 12px;
-  border: 1px solid var(--stroke);
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--text);
+  border: 1px solid #888;
+  background: #111;
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 11px;
   cursor: pointer;
-  font-weight: 600;
 }
 
 .btn:disabled {
   opacity: 0.5;
-  cursor: not-allowed;
+  cursor: default;
 }
 
-.btnDanger {
-  border-color: rgba(255, 90, 90, 0.35);
-  color: rgba(255, 90, 90, 1);
-  background: rgba(255, 90, 90, 0.1);
+.btn:hover:not(:disabled) {
+  background: #222;
 }
 
-.chatBody {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  padding: 10px 12px;
+.dangerBtn {
+  border-color: #ff5570;
+  color: #ff5570;
 }
 
-.messagesScroll {
-  flex: 1;
-  overflow-y: auto;
-  padding: 6px;
-}
-
-.placeholder {
-  padding: 50px;
-  opacity: 0.75;
-  margin: auto;
-  background-color: rgba(255, 255, 255, 0.05);
-  border-bottom: 5px solid white;
-  border-top: 5px solid white;
-}
-.placeholder p{
-  font-weight: 200;
-  font-size: 20px;
-  margin-bottom: 20px;
-  letter-spacing: 0.1em;
-}
-
-
-
-.message {
-  /* width: auto; */
-  width: fit-content;
-  max-width: 70%;
-  border: 1px solid rgba(255, 255, 255, 0.435);
-  padding: 10px 12px;
-  margin: 10px 6px;
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text);
-}
-
-.message.local {
-  margin-left: auto;
-  border-color: rgba(255,255,255);
-}
-
-.messageInfos{
-  display: flex;
-  /* gap: 30px; */
-  margin-bottom: 5px;
-  width: 100%;
-  gap: 10px;
-}
-
-.sender {
-  font-weight: 800;
-  font-size: 12px;
-  opacity: 0.8;
-  margin-bottom: 4px;
-}
-
-.time {
+.statusStack {
+  margin-top: 6px;
   font-size: 11px;
-  opacity: 0.65;
-  margin-bottom: 6px;
-  margin-left: auto;
-
 }
 
-.message p {
-  margin-top: 15px;
-  white-space: pre-wrap;
-  word-break: break-word;
+.statusText {
+  padding: 4px 6px;
+  border: 1px solid #555;
+  background: #050505;
+  color: #aaa;
 }
 
-.bottomBar {
-  height: 20vh;
-  display: flex;
-  gap: 12px;
-  padding: 12px;
-  border-top: 1px solid var(--stroke);
-  background: rgba(0, 0, 0, 0.18);
+.statusText.error {
+  border-color: #ff5570;
+  color: #ff889a;
 }
 
-.panel {
-  border: 1px solid var(--stroke);
-  background: rgba(255, 255, 255, 0.08);
-  padding: 12px;
-  overflow: hidden;
+/* 메인 대시보드 */
+
+.dashboardWrapper {
+  width: 100%;
+  font-size: 12px;
 }
 
-.infoPanel {
-  border: 0px;
-  background: rgba(255, 255, 255, 0);
-  /* align-items: center; */
-  justify-content: center;
-  width: 30%;
-  /* width: 280px; */
-  /* min-width: 240px; */
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.infoTitle {
-  font-weight: 900;
-  font-size: 16px;
-}
-
-.infoRow {
+.memberHeaderRow {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.memberHeaderLabel {
+  font-size: 11px;
+  color: #aaa;
+}
+
+.memberName {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* 배터리 영역 */
+
+.batterySection {
+  border: 1px solid #444;
+  padding: 8px;
+  margin-bottom: 8px;
   font-size: 12px;
-  opacity: 0.85;
 }
 
-.infoRowLeft {
-  justify-content: flex-start;
-  gap: 8px;
-  opacity: 0.75;
+.batteryHeaderRow {
+  display: flex;
+  justify-content: space-between;
 }
 
-.infoKey {
-  opacity: 0.75;
+.batteryBarShell {
+  border: 1px solid #666;
+  height: 18px;
+  margin: 4px 0;
+  background: #000;
+  display: flex;
+  align-items: center;
+  padding: 0 1px;
 }
 
-.infoVal {
-  font-weight: 800;
+.batteryBarFill {
+  height: 100%;
+  background: #fff;
+}
+
+.batteryFooterRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+}
+
+.batteryLabel {
+  color: #aaa;
+}
+
+.batteryRight {
+  text-align: right;
+}
+
+.batteryPercent {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* 상세 정보 GRID */
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  font-size: 12px;
+}
+
+.infoCell {
+  border: 1px solid #444;
+  padding: 4px 6px;
+  min-width: 0;
+}
+
+.infoLabel {
+  font-size: 11px;
+  color: #aaa;
+  margin-bottom: 2px;
+}
+
+.infoValue {
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 160px;
 }
 
-.divider {
-  height: 1px;
-  background: rgba(255, 255, 255, 0.5);
-  margin: 6px 0;
+/* 신규 클라이언트 폼 */
+
+.newClientForm {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  font-size: 12px;
 }
 
-.composer {
-  flex: 1;
-  /* min-width: 520px; */
+.newClientSubmitCell {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.composerBox {
-  display: flex;
-  gap: 10px;
   align-items: flex-end;
 }
 
-.input {
+/* 다른 멤버 카드 그리드 */
+
+.othersGridWrapper {
   flex: 1;
-  height: 60px;
-  /* height: 100%; */
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(0, 0, 0, 0.18);
-  color: var(--text);
-  padding: 0 12px;
-  outline: none;
-  font-size: 1em;
+  min-height: 0;
+  overflow-y: auto;
 }
 
-.sendBtn {
-  height: 60px;
-  padding: 0 16px;
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  background: rgba(122, 122, 122, 0.2);
-  color: rgba(255, 255, 255, 0.95);
-  font-weight: 900;
-  cursor: pointer;
-}
-
-.sendBtn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.warn {
-  border: 1px solid rgba(255, 90, 90, 0.35);
-  background: var(--dangerBg);
-  color: var(--danger);
-  padding: 10px 12px;
-  font-size: 12px;
-}
-
-.warnSoft {
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.86);
-  padding: 10px 12px;
-  font-size: 12px;
-}
-
-.composerHint {
-  margin-top: 10px;
-  opacity: 0.7;
-  font-size: 12px;
-}
-
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
+.othersGrid {
   display: grid;
-  place-items: center;
-  z-index: 9999;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 6px;
 }
 
-.overlaySecondary {
-  z-index: 9998;
+.otherCard {
+  border: 1px solid #444;
+  padding: 6px;
+  font-size: 12px;
 }
 
-.modal {
-  /* width: 420px; */
-  width: fit-content;
-  max-width: 92vw;
-  background: rgba(10, 10, 14, 0.92);
-  color: var(--text);
-  /* border-radius: 18px; */
-  border: 1px solid rgba(255, 255, 255);
-  padding: 16px;
-}
-
-.modal h3{
-  margin-bottom: 10px;
-  text-align: center;
-}
-
-.modalWide {
-  width: fit-content;
-}
-
-.modalRow {
+.otherTopRow {
   display: flex;
-  gap: 10px;
-  margin-top: 12px;
-  justify-content: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
 }
 
-.modal .input{
-  width: 300px;
-  text-align: center;
-  font-style: italic;
-  font-size: 1.5em;
+.otherBatteryShell {
+  border: 1px solid #555;
+  height: 8px;
+  margin-bottom: 4px;
+  background: #000;
 }
-.modalHint {
-  opacity: 0.75;
-  margin-top: 6px;
-  margin-bottom: 12px;
+
+.otherBatteryFill {
+  height: 100%;
+  background: #fff;
+}
+
+.otherBottomRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #ccc;
+}
+
+/* 반응형 */
+
+@media (max-width: 900px) {
+  .panelBody-split {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

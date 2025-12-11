@@ -221,7 +221,7 @@ void setup() {
 
   pinMode(NFC_ENABLE_PIN, INPUT_PULLUP);
 
-  // Explicit SPI pins (VSPI defaults match these, but we set anyway)
+  // Explicit SPI pins (VSPI defaults match these, but we set anyway-)
   SPI.begin(PN532_SCK, PN532_MISO, PN532_MOSI, PN532_SS);
 
   Serial.println("PN532 SPI NTAG (ESP32-32E Display board) - rearm on tag removal");

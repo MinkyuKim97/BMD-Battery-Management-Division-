@@ -13,10 +13,18 @@ int angle4[1] = {0};
 int currentAngle[SERVO_COUNT] = {
   angle0[0],
   angle1[2],
-  angle2[1],
+  angle2[0],
   angle3[0],
   angle4[0]
 };
+int startAngle[SERVO_COUNT] = {
+  175,
+  80,
+  75,
+  100,
+  angle4[0]
+};
+
 // int currentAngle[SERVO_COUNT] = {90,25,105,90,90};
 // int chargingStationState = 0;
 
@@ -44,7 +52,17 @@ void moveServoSmooth(int index, int target) {
 
 void setup() {
   Serial.begin(115200);
-  servoReset();
+    for (int i = 0; i < SERVO_COUNT; i++) {
+    servos[i].attach(servoPins[i]);
+      servos[i].write(startAngle[i]);
+  }
+    //     moveServoSmooth(0,angle0[0]);
+    // moveServoSmooth(1,angle1[2]);
+    // moveServoSmooth(2,angle2[0]);
+    // moveServoSmooth(3,angle3[0]);
+    // moveServoSmooth(4,angle4[0]);
+
+  // servoReset();
   // replacementAction();
 }
 
@@ -60,9 +78,11 @@ void loop() {
         cmd.trim();
 
         if (cmd == "REPLACEMENT_START") {
+          Serial.println("Replacing");
           replacementAction();
         }
         else if(cmd == "SERVO_RESET"){
+          Serial.println("Resetting");
           servoReset();
         }
       }
@@ -74,35 +94,46 @@ void loop() {
   }
 }
 void servoReset(){
-  for (int i = 0; i < SERVO_COUNT; i++) {
-    servos[i].attach(servoPins[i]);
-    servos[i].write(currentAngle[i]);
-  }
+    moveServoSmooth(0,angle0[0]);
+    moveServoSmooth(1,angle1[2]);
+    moveServoSmooth(2,angle2[0]);
+    moveServoSmooth(3,angle3[0]);
+    moveServoSmooth(4,angle4[0]);
+
+  // for (int i = 0; i < SERVO_COUNT; i++) {
+  //   if(i!=4){
+  //   servos[i].attach(servoPins[i]);
+  //     servos[i].write(startAngle[i]);
+
+  //   }
+  // }
 }
 void replacementAction(){
   moveServoSmooth(1,angle1[2]);
   moveServoSmooth(0, angle0[1]);
   delay(50);
   moveServoSmooth(2,angle2[1]);
+  delay(200);
   moveServoSmooth(3,angle3[0]);
-  delay(50);
+  delay(500);
   moveServoSmooth(1,angle1[0]);
   delay(50);
   moveServoSmooth(2,angle2[0]);
-  delay(30);
+  delay(200);
   moveServoSmooth(3,angle3[1]);
-  delay(30);
+  delay(500);
   moveServoSmooth(2,angle2[1]);
-  delay(10);
+  delay(200);
   moveServoSmooth(1,angle1[1]);
   delay(30);
   moveServoSmooth(2,angle2[0]);
-  delay(20);
+  delay(200);
   moveServoSmooth(3,angle3[0]);
-  delay(20);
+  delay(500);
   moveServoSmooth(2,angle2[1]);
+  delay(200);
   moveServoSmooth(3,angle3[1]);
-  delay(30);
+  delay(500);
   moveServoSmooth(1,angle1[2]);
   if(angle4[0] == 0){
     angle4[0] = 90;
@@ -115,19 +146,23 @@ void replacementAction(){
   moveServoSmooth(1,angle1[1]);
   delay(20);
   moveServoSmooth(2,angle2[0]);
-  delay(50);
+  delay(200);
   moveServoSmooth(2,angle2[1]);
-  delay(30);
+  delay(200);
   moveServoSmooth(1,angle1[0]);
   delay(20);
   moveServoSmooth(2,angle2[0]);
-  delay(20);
+  delay(500);
   moveServoSmooth(3,angle3[0]);
-  delay(20);
+  delay(500);
   moveServoSmooth(2,angle2[1]);
   moveServoSmooth(3,angle3[1]);
-  delay(20);
+  delay(500);
   moveServoSmooth(1,angle1[2]);
-  delay(20);
+  delay(100);
   moveServoSmooth(0,angle0[3]);
+  delay(100);
+  //   moveServoSmooth(2,angle2[0]);
+  // moveServoSmooth(3,angle3[0]);
+
 }
