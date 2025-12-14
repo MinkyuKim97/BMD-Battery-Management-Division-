@@ -1,6 +1,5 @@
 
 import "../style.css";
-
 import { useEffect, useMemo, useState } from "react";
 import { db } from "../firebaseConfig.js";
 import {
@@ -14,10 +13,13 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 
-// ==== helpers ======================================================
-
+// Year offset setting only for displaying
 const DISPLAY_YEAR_OFFSET = 100;
 
+// Full name trimmer
+// Since, user is importing their name with two input fields(first and alst name)
+// get the full name by combining and trimming them
+// And why separate? Make sure user to use right form of name input
 function buildFullName(first, last) {
   const f = (first || "").trim();
   const l = (last || "").trim();
@@ -27,10 +29,13 @@ function buildFullName(first, last) {
   return `${f} ${l}`;
 }
 
+// Normalize name for database comparison
 function normalizeName(name) {
   return (name || "").trim().replace(/\s+/g, " ").toLowerCase();
 }
 
+// For returning right date form from various input shapes
+// Null, undefined, Firestore Timestamp, second, millis, string second, and wrong type(just random string)
 function epochToDate(v) {
   if (v === null || v === undefined) return null;
 
@@ -47,6 +52,7 @@ function epochToDate(v) {
   return new Date(n);
 }
 
+// Applying year offest(100 years)
 function applyYearOffset(date, offsetYears = DISPLAY_YEAR_OFFSET) {
   if (!date) return null;
   const d = new Date(date.getTime());
@@ -54,6 +60,11 @@ function applyYearOffset(date, offsetYears = DISPLAY_YEAR_OFFSET) {
   return d;
 }
 
+// Converting user date input into Unix
+// EX. 12/12/2025 -> 1765689600
+// The main reason why I decide to use Unix shape is
+// for mapping the 'lastreplacementdate' and 'batteryduedate' to
+// show the currentbattery percentage
 function parseMDYToEpoch(mdy) {
   const s = (mdy || "").trim();
   if (!s) return null;
@@ -74,6 +85,7 @@ function parseMDYToEpoch(mdy) {
   return Math.floor(date.getTime() / 1000);
 }
 
+// Converting Unix into MM/DD/YYYY shape
 function formatMDY(value) {
   const base = epochToDate(value);
   if (!base) return "-";
@@ -84,13 +96,11 @@ function formatMDY(value) {
   return `${mm}/${dd}/${yyyy}`;
 }
 
-function formatDateTime(value) {
-  const base = epochToDate(value);
-  if (!base) return "—";
-  const d = applyYearOffset(base);
-  return d.toLocaleString();
-}
-
+// Calculating the battery percentage
+// Start = lastReplacementDate
+// End = batteryDueDate
+// Now = current time
+// Always use the date without 100 year offset
 function calPercentage(member) {
   const startDate = epochToDate(member?.lastBatteryReplacementDate);
   const endDate = epochToDate(member?.batteryDueDate);
@@ -111,7 +121,12 @@ function calPercentage(member) {
   return { percent: remainingPercent, startDate, endDate };
 }
 
-// tendency를 0~10으로 받아서 lastReplacement에서 1~2개월 사이로 due date 계산
+// Use Tendency to calculate the due date
+// Higher tendency means, citizen uses the battery more than usual,
+// so, it supposes to use the battery faster.
+// So, if the tendency set as 0, due date is lastReplacement + 2 months
+// If the tendency set as 10, due date is lastReplacement + 1 month
+// In between, linearly interpolate the due date
 function calDueDateWithTendency(lastEpoch, tendencyRaw) {
   if (lastEpoch == null) return null;
   const lastDate = new Date(lastEpoch * 1000);
@@ -123,7 +138,8 @@ function calDueDateWithTendency(lastEpoch, tendencyRaw) {
   if (t > 10) t = 10;
   const norm = t / 10; // 0~1
 
-  // base1: +1개월, base2: +2개월
+  // base1 -> +1 month
+  // base2 -> +2 month
   const base1 = new Date(lastDate.getTime());
   base1.setMonth(base1.getMonth() + 1);
   base1.setHours(0, 0, 0, 0);
@@ -135,25 +151,29 @@ function calDueDateWithTendency(lastEpoch, tendencyRaw) {
   const ms1 = base1.getTime();
   const ms2 = base2.getTime();
 
-  // tendency가 높을수록(1에 가까울수록) base1 쪽으로 끌어당김
+  // Based on Tendency, getting closer to base1 number
   const targetMs = ms2 - norm * (ms2 - ms1);
 
   return Math.floor(targetMs / 1000);
 }
 
-// ==== main app =====================================================
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
+// ----------------------------------------------------------------
 
+
+// Rendering sections
 export function App() {
+  // For getting user input
   const [firstNameInput, setFirstNameInput] = useState("");
   const [lastNameInput, setLastNameInput] = useState("");
-
   const [currentName, setCurrentName] = useState("");
   const [newMemberName, setNewMemberName] = useState("");
   const [connectError, setConnectError] = useState("");
-
   const [members, setMembers] = useState([]);
   const [membersLoaded, setMembersLoaded] = useState(false);
 
+  // For showing the data from database
   const [createCountry, setCreateCountry] = useState("");
   const [createBirth, setCreateBirth] = useState("");
   const [createLastReplacement, setCreateLastReplacement] = useState("");
@@ -166,6 +186,7 @@ export function App() {
     document.title = "BMD";
   }, []);
 
+  // Get current date, but apply 100 years offset right away
   const todayStr = useMemo(() => {
     const base = new Date();
     const d = applyYearOffset(base);
@@ -175,7 +196,7 @@ export function App() {
     return `${mm}/${dd}/${yyyy}`;
   }, []);
 
-  // Firestore: members 실시간 구독
+  // Firestore database, information update read
   useEffect(() => {
     const q = query(collection(db, "members"), orderBy("batteryDueDate", "asc"));
     const unsub = onSnapshot(
@@ -212,7 +233,13 @@ export function App() {
     [currentMember]
   );
 
-  // 배터리 0%일 때 자동으로 Financial Access / Visa Type 변경
+  // [Penalty]
+  // This section is for showing the penalty
+  // If the battery percentage goes 0%, 
+  // rerender user's financial access and visa type
+  // as 'none'
+  // Since, it's useEffect, when user replace their battery with hardware(facility)
+  // , it automatically refresh the status
   useEffect(() => {
     if (!currentMember || !currentMember.id) return;
     if (!mainProgress) return;
@@ -243,7 +270,9 @@ export function App() {
     mainProgress?.percent,
   ]);
 
-  // lastReplacement가 바뀔 때마다(다른 장치에서 수정해도) due date 재계산
+  // Re-rendering BatteryDueDate
+  // Since, user will replace their battery through the hardware(facility),
+  // the website detect the changes and apply the result on the due date
   useEffect(() => {
     if (!currentMember || !currentMember.id) return;
 
@@ -269,16 +298,18 @@ export function App() {
     currentMember?.batteryDueDate,
   ]);
 
+  // When user input their name,
+  // check is it on DB or not
+  // if match true -> show the dashboard
+  // if match false -> show the create new info form
   function handleConnect(e) {
     e?.preventDefault?.();
     if (!membersLoaded) {
-      // setConnectError("Registry is still loading. Retry in a moment.");
       return;
     }
 
     const full = buildFullName(firstNameInput, lastNameInput);
     if (!full) {
-      // setConnectError("First Name / Last Name");
       setNewMemberName("");
       setCurrentName("");
       return;
@@ -295,8 +326,6 @@ export function App() {
     } else {
       setCurrentName("");
       setNewMemberName(full);
-      // setConnectError(
-      // );
       setCreateError("");
       setCreateCountry("");
       setCreateBirth("");
@@ -306,6 +335,9 @@ export function App() {
     }
   }
 
+  // Delete current user's data
+  // In the future, need to connect with user identification 
+  // to not allow other user to delete someone else's data
   async function handleDeleteRecord() {
     if (!membersLoaded) return;
 
@@ -323,7 +355,7 @@ export function App() {
     }
 
     const ok = window.confirm(
-      `Really delete record for "${match.name}"?\nThis operation cannot be undone.`
+      `[WARNING] Delete record for "${match.name}"?.`
     );
     if (!ok) return;
 
@@ -341,6 +373,7 @@ export function App() {
     }
   }
 
+  // Creating new data record
   async function handleCreateMember(e) {
     e?.preventDefault?.();
     if (!newMemberName) return;
@@ -351,14 +384,14 @@ export function App() {
     try {
       const birthEpoch = parseMDYToEpoch(createBirth);
       if (birthEpoch == null) {
-        setCreateError("Birth Date 는 MM/DD/YYYY 형식으로 입력해야 합니다.");
+        setCreateError("Birth Date Form -> MM/DD/YYYY");
         setCreating(false);
         return;
       }
 
       const lastEpoch = parseMDYToEpoch(createLastReplacement);
       if (lastEpoch == null) {
-        setCreateError("Last Replacement 도 MM/DD/YYYY 형식으로 입력해야 합니다.");
+        setCreateError("Last Replacement Form -> MM/DD/YYYY");
         setCreating(false);
         return;
       }
@@ -370,7 +403,7 @@ export function App() {
 
       const dueEpoch = calDueDateWithTendency(lastEpoch, tendencyNum);
       if (dueEpoch == null) {
-        setCreateError("Battery due date 계산에 실패했습니다.");
+        setCreateError("Fail calculating Battery due date");
         setCreating(false);
         return;
       }
@@ -399,12 +432,14 @@ export function App() {
       setConnectError("");
     } catch (e) {
       console.error("create member failed:", e);
-      setCreateError(e?.message || "Failed to create member.");
+      setCreateError(e?.message || "Failed to create data.");
     } finally {
       setCreating(false);
     }
   }
 
+  // Hows battery UI
+  // Starts, ends, and percentage
   const batteryPercentText =
     mainProgress && Number.isFinite(mainProgress.percent)
       ? `${mainProgress.percent}%`
@@ -421,24 +456,31 @@ export function App() {
   const currentFinancial =
     currentMember?.canFinancialTransactions === true ? "YES" : "NO";
 
+
+  // ----------------------------------------------------------------
+  // ----------------------------------------------------------------
+  // Actual web render section
   return (
-    <div className="appShell">
-      {/* 상단 패널 */}
+    <div className="totalDiv">      
       <div className="panel panel-main">
         <div className="panelHeader">
           <div>
-            <div className="systemTitle">BMD</div>
-            <div className="systemSubtitle">
-              Battery Management Division
+            <div className="titleTotalBox">
+            <div className="titleBig">BMD</div>
+            <div className="titleSmall">
+              [ Battery Management Division ]
+            </div>
+
             </div>
           </div>
-          <div className="panelHeaderStatus">{todayStr}</div>
+          <div className="panelHeaderStatus">Date:
+            <div className="datePlacer">{todayStr}
+              </div> </div>
         </div>
 
         <div className="panelBody-split">
-          {/* 좌측: 이름 입력 */}
           <div className="sectionCard">
-            <h3 className="sectionTitle">Identity Check</h3>
+            <h3 className="sectionTitle">Citizen Identity Check</h3>
 
             <form className="identityForm" onSubmit={handleConnect}>
               <div className="field">
@@ -464,7 +506,7 @@ export function App() {
                   className="btn"
                   disabled={!membersLoaded}
                 >
-                  Access Record
+                  Access Data
                 </button>
                 <button
                   type="button"
@@ -472,7 +514,7 @@ export function App() {
                   onClick={handleDeleteRecord}
                   disabled={!membersLoaded}
                 >
-                  Delete Record
+                  Delete Data
                 </button>
               </div>
             </form>
@@ -484,21 +526,20 @@ export function App() {
             </div>
           </div>
 
-          {/* 우측: 현재 멤버 대시보드 or 신규 등록 */}
+
           <div className="sectionCard">
             {currentMember ? (
               <div className="dashboardWrapper">
                 <div className="memberHeaderRow">
                   <div>
-                    <div className="memberHeaderLabel">Member File</div>
+                    <div className="memberHeaderLabel">Citizen Name:</div>
                     <div className="memberName">{currentMember.name}</div>
                   </div>
                 </div>
 
                 <div className="batterySection">
                   <div className="batteryHeaderRow">
-                    <div>Battery Remaining (0–100)</div>
-                    <div>Current Level</div>
+                    <div>Battery Percentage:</div>
                   </div>
 
                   <div className="batteryBarShell">
@@ -516,18 +557,19 @@ export function App() {
 
                   <div className="batteryFooterRow">
                     <div>
-                      <div className="batteryLabel">
-                        Last Replacement
-                      </div>
-                      <div>{batteryStartDisplay}</div>
-                    </div>
-                    <div className="batteryRight">
                       <div className="batteryPercent">
                         {batteryPercentText}
                       </div>
+                    </div>
+                    <div className="batteryRight">
                       <div className="batteryLabel">
-                        Due {batteryEndDisplay}
+                        Last Replacement Date:
                       </div>
+                      <div>{batteryStartDisplay}</div>
+                      <div className="batteryLabel">
+                        Estimated Next Replacement Date:
+                      </div>
+                      <div>{batteryEndDisplay}</div>
                     </div>
                   </div>
                 </div>
@@ -573,16 +615,17 @@ export function App() {
                     <div className="infoLabel">Tendency</div>
                     <div className="infoValue">
                       {Number.isFinite(currentMember.tendency)
-                        ? `${currentMember.tendency}/10`
+                        ? `${currentMember.tendency} / 10`
                         : "—"}
                     </div>
                   </div>
                 </div>
               </div>
             ) : newMemberName ? (
+              // Creating new citizen data
               <>
                 <h3 className="sectionTitle">
-                  New Client Registration — {newMemberName}
+                  New Citizne Registration: {newMemberName}
                 </h3>
 
                 <form
@@ -598,23 +641,23 @@ export function App() {
                     />
                   </div>
                   <div className="field">
-                    <span>Birth Date (MM/DD/YYYY)</span>
+                    <span>Birth Date</span>
                     <input
                       className="input"
                       value={createBirth}
                       onChange={(e) => setCreateBirth(e.target.value)}
-                      placeholder="10/25/1997"
+                      placeholder="MM/DD/YYYY"
                     />
                   </div>
                   <div className="field">
-                    <span>Last Replacement (MM/DD/YYYY)</span>
+                    <span>Last Battery Replacement Date</span>
                     <input
                       className="input"
                       value={createLastReplacement}
                       onChange={(e) =>
                         setCreateLastReplacement(e.target.value)
                       }
-                      placeholder="12/11/2025"
+                      placeholder="MM/DD/YYYY"
                     />
                   </div>
                   <div className="field">
@@ -627,12 +670,12 @@ export function App() {
                     />
                   </div>
                   <div className="field">
-                    <span>Tendency (0–10)</span>
+                    <span>Tendency (how hard you work?)</span>
                     <input
                       className="input"
                       value={createTendency}
                       onChange={(e) => setCreateTendency(e.target.value)}
-                      placeholder="9"
+                      placeholder="0 - 10"
                     />
                   </div>
                   <div className="newClientSubmitCell">
@@ -641,7 +684,7 @@ export function App() {
                       className="btn"
                       disabled={creating}
                     >
-                      {creating ? "Creating..." : "Create Record"}
+                      {creating ? "Creating..." : "Create Data"}
                     </button>
                   </div>
                 </form>
@@ -657,7 +700,7 @@ export function App() {
         </div>
       </div>
 
-      {/* 하단: 다른 사용자 카드 그리드 */}
+      {/* Other citizen's battery infos */}
       <div className="panel panel-others">
         <div className="othersGridWrapper">
           <div className="othersGrid">
@@ -671,6 +714,7 @@ export function App() {
               const lastDisplay = formatMDY(
                 m.lastBatteryReplacementDate
               );
+              const tendencyDisplay = m.tendency;
               const dueDisplay = formatMDY(m.batteryDueDate);
 
               return (
@@ -689,8 +733,8 @@ export function App() {
                     />
                   </div>
                   <div className="otherBottomRow">
-                    <span>Last: {lastDisplay}</span>
-                    <span>Due: {dueDisplay}</span>
+                    <span>Tendency: {tendencyDisplay} / 10</span>
+                    <span> Battery Due: {dueDisplay}</span>
                   </div>
                 </div>
               );
@@ -698,7 +742,7 @@ export function App() {
 
             {otherMembers.length === 0 && (
               <div className="otherCard">
-                <div>No additional records.</div>
+                <div>No other data</div>
               </div>
             )}
           </div>

@@ -1,4 +1,3 @@
-/* 전역 레이아웃 */
 
 html,
 body,
@@ -17,9 +16,8 @@ body {
   overflow: hidden;
 }
 
-/* 기본 패널 / 레이아웃 */
-
-.appShell {
+/* Base layout style------------------------ */
+.totalDiv {
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -28,8 +26,8 @@ body {
 }
 
 .panel {
-  border: 1px solid #444;
-  padding: 8px;
+  border: 3px solid #858585;
+  padding: 10px;
   background: #050505;
 }
 
@@ -44,32 +42,42 @@ body {
   flex-direction: column;
 }
 
-/* 헤더 */
-
+/* Title Header------------------------------------- */
 .panelHeader {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 8px;
 }
-
-.systemTitle {
-  font-size: 16px;
-  font-weight: 600;
+.titleTotalBox{
+  display: flex;
+  gap: 5px;
+  align-items: end;
 }
 
-.systemSubtitle {
-  font-size: 11px;
+.titleBig {
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.titleSmall {
+  font-size: 16px;
   color: #ccc;
 }
 
 .panelHeaderStatus {
   text-align: right;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
+  color: #858585;
+}
+.datePlacer{
+  font-size: 20px;
+  color: #dcdcdc;
+  letter-spacing: 0.1em;
 }
 
-/* 상단 패널 내부 split */
 
 .panelBody-split {
   display: grid;
@@ -77,7 +85,7 @@ body {
   gap: 8px;
 }
 
-/* 서브 카드 */
+/* Citizen data section */
 
 .sectionCard {
   border: 1px solid #444;
@@ -85,11 +93,10 @@ body {
 }
 
 .sectionTitle {
-  font-size: 12px;
+  font-size: 16px;
   margin: 0 0 4px;
 }
 
-/* Identity form 쪽 */
 
 .identityForm {
   display: flex;
@@ -126,7 +133,7 @@ body {
 
 .btn {
   border: 1px solid #888;
-  background: #111;
+  background: #050505;
   color: #fff;
   padding: 4px 8px;
   font-size: 11px;
@@ -164,8 +171,7 @@ body {
   color: #ff889a;
 }
 
-/* 메인 대시보드 */
-
+/* Main dashboard style */
 .dashboardWrapper {
   width: 100%;
   font-size: 12px;
@@ -187,8 +193,7 @@ body {
   font-weight: 600;
 }
 
-/* 배터리 영역 */
-
+/* Battery section styles */
 .batterySection {
   border: 1px solid #444;
   padding: 8px;
@@ -224,6 +229,7 @@ body {
 
 .batteryLabel {
   color: #aaa;
+
 }
 
 .batteryRight {
@@ -231,12 +237,11 @@ body {
 }
 
 .batteryPercent {
-  font-size: 14px;
+  font-size: 45px;
   font-weight: 600;
 }
 
-/* 상세 정보 GRID */
-
+/* Citizen Info grid ------------------ */
 .infoGrid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -247,7 +252,6 @@ body {
 .infoCell {
   border: 1px solid #444;
   padding: 4px 6px;
-  min-width: 0;
 }
 
 .infoLabel {
@@ -262,8 +266,7 @@ body {
   text-overflow: ellipsis;
 }
 
-/* 신규 클라이언트 폼 */
-
+/* New Citizen info input section ----------------- */
 .newClientForm {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -276,8 +279,7 @@ body {
   align-items: flex-end;
 }
 
-/* 다른 멤버 카드 그리드 */
-
+/* Other citizen's info card ----------- */
 .othersGridWrapper {
   flex: 1;
   min-height: 0;
@@ -321,10 +323,3 @@ body {
   color: #ccc;
 }
 
-/* 반응형 */
-
-@media (max-width: 900px) {
-  .panelBody-split {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}

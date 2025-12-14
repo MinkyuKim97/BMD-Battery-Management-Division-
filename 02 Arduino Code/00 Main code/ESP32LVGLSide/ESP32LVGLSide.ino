@@ -1,19 +1,39 @@
+//------------------------------------------------------------
+// Board info: ESP32 LVGL 3.5 innch display
+// Upload Set up
+// - Tool -> Board -> 'ESP32 Dev Module'
+// - Flash Size: 4mb
+// - PSRAM: Disabled
+// - Upload Speed: 115200 (921600 might break the upload)
+// - Flash Mode: DIO
+// - Flash Frequency: 40MHz
+// - Partition Scheme: Default
+//------------------------------------------------------------
+// [secret.h]
+// Make sure fill up the secret infos
+// 1. WIFI SSID/PASSWORD list
+// 2. Firestore database API key
+//------------------------------------------------------------
+// GFX font
 #include <U8g2lib.h>
+// Display libraries
 #include <Arduino_GFX_Library.h>
 #include <SPI.h>
 #include <XPT2046_Touchscreen.h>
+// WIFI
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 #include <HTTPClient.h>
+// JSON read
 #include <ArduinoJson.h>
+// Time for Unix shape
 #include <time.h>
+// NFC Module
 #include <Adafruit_PN532.h>
 
 #include "secrets.h"
 
-// ----------------------------------------------------
-// ESP32-32E 3.5" pin setting (TFT + Touch)
-// ----------------------------------------------------
+// LVGL Display pin setting
 #define TFT_CS   15
 #define TFT_DC   2
 #define TFT_SCK  14
@@ -22,20 +42,22 @@
 #define TFT_BL   27
 #define TFT_RST  GFX_NOT_DEFINED
 
-// Touch (XPT2046)
+// Touch - XPT2046
 #define TP_CS    33
 #define TP_IRQ   36
 
-// ===== touch calib =====
+// For touch calibration
 #define TS_MINX  200
 #define TS_MAXX  3800
 #define TS_MINY  200
 #define TS_MAXY  3800
 
+// Touch direction set-up purpose
 #define TOUCH_SWAP_XY   true
 #define TOUCH_INVERT_X  true
 #define TOUCH_INVERT_Y  false
 
+// Common Debounce time
 const uint32_t debounceMs = 220;
 
 // HSPI (TFT + Touch)
@@ -51,110 +73,92 @@ Arduino_GFX *gfx = new Arduino_ST7796(bus, TFT_RST, 0);
 
 // Touch
 XPT2046_Touchscreen ts(TP_CS, TP_IRQ);
-// touch calib helper
+// Touch calib helper
 int16_t obsMinX = 4095, obsMaxX = 0, obsMinY = 4095, obsMaxY = 0;
-// touch edge detect
+
 bool lastTouched = false;
 uint32_t lastTouchMs = 0;
 
-// Color base
+// Color base set-up
 static const uint16_t COLOR_RED       = 0xF800;
 static const uint16_t COLOR_WHITE     = 0xFFFF;
 static const uint16_t COLOR_BLACK     = 0x0000;
 static const uint16_t COLOR_GRAY      = 0x2104;
+static const uint16_t COLOR_BG        = 0x0000;
+static const uint16_t COLOR_PANEL     = 0x1082;
+static const uint16_t COLOR_PANEL_IN  = 0x2104;
+static const uint16_t COLOR_ACCENT    = 0x07E0;
+static const uint16_t COLOR_ACCENT2   = 0xF800;
+static const uint16_t COLOR_TEXT_DIM  = 0xC618;
+static const uint16_t COLOR_YELLOW    = 0xFFE0;
 
-// UI용 컬러들
-static const uint16_t COLOR_BG        = 0x0000; // 전체 배경
-static const uint16_t COLOR_PANEL     = 0x1082; // 패널 바탕(짙은 회색)
-static const uint16_t COLOR_PANEL_IN  = 0x2104; // 카드 내부 배경(약간 밝은 회색)
-static const uint16_t COLOR_ACCENT    = 0x07E0; // 강조(초록)
-static const uint16_t COLOR_ACCENT2   = 0xF800; // 강조(빨강)
-static const uint16_t COLOR_TEXT_DIM  = 0xC618; // 흐린 텍스트
-static const uint16_t COLOR_YELLOW    = 0xFFE0; // 배터리 중간색
-
-// Wifi bar height
+// WIFI status bar height
 static const int BAR_H = 24;
 
-// UI box size
+// UI box size set up
 struct Rect { int16_t x, y, w, h; };
-Rect touchBox;          // 전체 중앙 카드(터치 영역)
-Rect servoResetBtnRect; // (지금은 UI만 사용)
-Rect memberBox;         // 카드 왼쪽 절반 (Citizen Info 영역)
-Rect nfcBox;            // 카드 오른쪽 절반 (Battery Data Status 영역)
+// Center touch-able area(?)
+Rect touchBox;
+// Left, member(citizen) info box
+Rect memberBox;
+// Right, NFC(battery) read box
+Rect nfcBox;
 
 // ----------------------------------------------------
-// Firebase / Firestore
 // ----------------------------------------------------
+
+// Firebase / Firestore
 String g_idToken;
 uint32_t g_tokenExpiryMs = 0;
 
-// 기본 인덱스용 (디버그용)
-const char* MEMBER_DOCS[] = {"members/m1", "members/m2", "members/m3"};
-const int MEMBER_COUNT = 3;
-int currentMemberIndex = 0;
-
-// member data
+// member(citizen) data from the database
 struct MemberInfo {
-  String docPath;     // "members/m1" 같은 경로
+  String docPath;
   String name;
   String country;
+  
+  // Based on Unix date -> map the battery percentage
+  int32_t birthDateUnix = 0;
+  int32_t batteryDueUnix = 0;
+  int32_t lastBatteryUnix = 0;
 
-  int32_t birthDateUnix = 0;            // Unix time (sec)
-  int32_t batteryDueUnix = 0;           // Unix time (sec)
-  int32_t lastBatteryUnix = 0;          // Unix time (sec)
-
-  String visaType;                      // empty => no visa
+  String visaType;
   bool canFinancial = false;
 
-  int tendency = 0;                     // 0~10
+  int tendency = 0;
   bool loaded = false;
 };
 MemberInfo currentMember;
 
-// Replacement 패널에 표시할 상태 문자열
+// Strings for initial replacement stage
 String g_lastNFCStatus = "Replacement init...";
 String g_lastNFCText   = "";
 String g_lastNFCUid    = "";
 
-// --- 2단계 Replacement UX 상태 ---
-String  g_firstTagText = "";       // 첫 번째 태그에서 읽은 문자열(이름)
-bool    g_hasFirstTag = false;     // 첫 번째 태그 성공 여부
-bool    g_secondWriteDone = false; // 두 번째 태그 쓰기 완료 여부
-uint32_t g_secondTagRemovedAt = 0; // 두 번째 태그를 뗀 시각 (ms), 0이면 아직 아님
+// String/bools for tag status
+String  g_firstTagText = "";
+bool    g_hasFirstTag = false;
+bool    g_secondWriteDone = false;
+uint32_t g_secondTagRemovedAt = 0;
 
-// ★ 두 번째 태그 유효 조건: REPLACEMENT_START(화면 터치) 이후인지
+// Second tag bool -> for sending SERVO_RESET serial after the second tag
 bool    g_readyForSecondTag = false;
 
-// ★ DB 업데이트 상태 표시용
+// Database update form
 bool    g_dbUpdateAttempted = false;
 bool    g_dbUpdateSuccess   = false;
 int32_t g_dbLastRepNew      = 0;
 
-// Serial Read setup (현재 안 씀)
-bool readLine(String& out) {
-  static String buf;
-  while (Serial.available()) {
-    char c = (char)Serial.read();
-    if (c == '\r') continue;
-    if (c == '\n') {
-      out = buf;
-      buf = "";
-      return true;
-    }
-    if (buf.length() < 200) buf += c;
-    else buf = "";
-  }
-  return false;
-}
 
 //------------------------
-//  utility 
+//------------------------
+
+//  Int clamping utility 
 int16_t clamp16(int16_t v, int16_t lo, int16_t hi) {
   if (v < lo) return lo;
   if (v > hi) return hi;
   return v;
 }
-
 int clampInt(int v, int lo, int hi) {
   if (v < lo) return lo;
   if (v > hi) return hi;
@@ -165,7 +169,7 @@ bool pointInRect(int16_t x, int16_t y, const Rect &r) {
   return (x >= r.x) && (x < (r.x + r.w)) && (y >= r.y) && (y < (r.y + r.h));
 }
 
-// Unix time -> "MM/DD/YYYY" (원래 값)
+// Unix time convert -> MM/DD/YYYY
 String unixToMDY(int32_t ts) {
   if (ts <= 0) return "-";
   time_t t = (time_t)ts;
@@ -180,8 +184,9 @@ String unixToMDY(int32_t ts) {
   return String(buf);
 }
 
-// ★ 화면 표시용: Unix time + 100년 → "MM/DD/YYYY"
-String unixToMDYPlus100(int32_t ts) {
+// Date 100 years offest -> Add 100 years from the date
+// Use for currnet date, replaced date, etc...
+String unixToMDYOffset100(int32_t ts) {
   if (ts <= 0) return "-";
   time_t t = (time_t)ts;
   struct tm *tmTime = localtime(&t);
@@ -196,27 +201,57 @@ String unixToMDYPlus100(int32_t ts) {
   return String(buf);
 }
 
+// Serial message 'CMD' add
+// Since using a basic RX/TX pin from both units, add 'CMD' to filter the commend line
 void sendToUnoCmd(const char* cmd) {
   Serial.print("@CMD:");
   Serial.println(cmd);
 }
 
 // ----------------------------------------------------
-// WiFi / Time / Firestore
 // ----------------------------------------------------
+
+// WIFI Connection
 void connectWiFi() {
   if (WiFi.status() == WL_CONNECTED) return;
+
+  static bool started = false;
+  static unsigned long lastAttempt = 0;
+
+  if (millis() - lastAttempt < 5000) return;
+  lastAttempt = millis();
 
   WiFi.mode(WIFI_STA);
   WiFi.setSleep(false);
 
-  static bool began = false;
-  if (!began) {
-    WiFi.begin(WIFI_SSID, WIFI_PASS);
-    began = true;
+  if (!started) {
+    Serial.println("Scanning WiFi...");
+    int n = WiFi.scanNetworks();
+
+    if (n <= 0) {
+      Serial.println("No WiFi networks found");
+      return;
+    }
+
+    for (int i = 0; i < n; i++) {
+      String found = WiFi.SSID(i);
+
+      for (int j = 0; j < WIFI_COUNT; j++) {
+        if (found == WIFI_SSIDS[j]) {
+          Serial.print("Connecting to ");
+          Serial.println(WIFI_SSIDS[j]);
+
+          WiFi.begin(WIFI_SSIDS[j], WIFI_PASSWORDS[j]);
+          started = true;
+          return;
+        }
+      }
+    }
+    Serial.println("No known WiFi detected");
   }
 }
 
+// WIFI status string for displaying through GFX
 String wifiLine() {
   wl_status_t st = WiFi.status();
   if (st == WL_CONNECTED) {
@@ -225,10 +260,11 @@ String wifiLine() {
   if (st == WL_IDLE_STATUS) return "WiFi:IDLE";
   if (st == WL_NO_SSID_AVAIL) return "WiFi:NO_SSID";
   if (st == WL_CONNECT_FAILED) return "WiFi:FAIL";
-  if (st == WL_DISCONNECTED) return "WiFi:DISC";
-  return "WiFi:UNK";
+  if (st == WL_DISCONNECTED) return "WiFi:DISCONNECTED";
+  return "WiFi:UNKOWN";
 }
 
+// GFX, draw wifi status on display
 void drawWifiStatusBar(bool force = false) {
   static String last = "";
   static uint32_t lastMs = 0;
@@ -242,15 +278,12 @@ void drawWifiStatusBar(bool force = false) {
 
   int16_t W = gfx->width();
 
-  // 바 배경
   gfx->fillRect(0, 0, W, BAR_H, COLOR_PANEL);
-  // 아래쪽 얇은 라인
   gfx->drawLine(0, BAR_H - 1, W, BAR_H - 1, COLOR_GRAY);
 
   gfx->setFont(u8g2_font_6x10_tr);
   gfx->setTextSize(1);
 
-  // 왼쪽: WiFi 라벨 + 상태
   gfx->setTextColor(COLOR_ACCENT);
   gfx->setCursor(6, 16);
   gfx->print("WiFi");
@@ -259,15 +292,15 @@ void drawWifiStatusBar(bool force = false) {
   gfx->setCursor(40, 16);
   gfx->print(s);
 
-  // 오른쪽: 장치 라벨
+  // Right side, BMD text
   gfx->setTextColor(COLOR_TEXT_DIM);
   gfx->setCursor(W - 80, 16);
-  gfx->print("BMD-CONSOLE");
+  gfx->print("BMD Replacement Facility");
 
   gfx->setFont();
 }
 
-// 시간 동기화 (NTP) – 한 번만 수행
+// Time sync process (Once)
 bool ensureTimeSynced() {
   static bool done = false;
   if (done) return true;
@@ -277,7 +310,7 @@ bool ensureTimeSynced() {
 
   for (int i = 0; i < 30; i++) { // 최대 ~6초
     time_t now = time(nullptr);
-    if (now > 1609459200) { // 2021-01-01 이후면 OK
+    if (now > 1609459200) {
       Serial.print("[TIME] synced: ");
       Serial.println((long)now);
       done = true;
@@ -290,6 +323,9 @@ bool ensureTimeSynced() {
 }
 
 // TLS
+// Insecure way to detect the firebase
+// but, this project isn't public or official, so...
+// for efficiency
 static inline void makeInsecureTLS(WiFiClientSecure &client) {
   client.setInsecure();
 }
@@ -308,6 +344,8 @@ bool firebaseSignIn() {
     Serial.println("[AUTH] https.begin failed");
     return false;
   }
+
+  // Targeting JSON shape
   https.addHeader("Content-Type", "application/json");
 
   StaticJsonDocument<256> req;
@@ -344,42 +382,7 @@ bool firebaseSignIn() {
   return true;
 }
 
-// Firestore raw GET (단일 문서)
-bool firestoreGetDocumentRaw(const String &docPath, int &httpCode, String &respOut) {
-  respOut = "";
-  httpCode = -1;
 
-  if (WiFi.status() != WL_CONNECTED) return false;
-
-  if (g_idToken.length() == 0 || millis() > g_tokenExpiryMs) {
-    if (!firebaseSignIn()) return false;
-  }
-
-  WiFiClientSecure client;
-  makeInsecureTLS(client);
-
-  HTTPClient https;
-  String url = String("https://firestore.googleapis.com/v1/projects/")
-             + FIREBASE_PROJECT_ID
-             + "/databases/(default)/documents/"
-             + docPath;
-
-  if (!https.begin(client, url)) {
-    Serial.println("[FS] https.begin failed");
-    return false;
-  }
-
-  https.addHeader("Authorization", "Bearer " + g_idToken);
-
-  httpCode = https.GET();
-  respOut = https.getString();
-  https.end();
-
-  Serial.printf("[FS] GET %s -> HTTP %d\n", docPath.c_str(), httpCode);
-  if (httpCode != 200) Serial.println(respOut);
-
-  return (httpCode == 200);
-}
 
 // Firestore response -> MemberInfo parse 
 bool parseMemberFromFirestore(const String &resp, MemberInfo &out) {
@@ -394,37 +397,38 @@ bool parseMemberFromFirestore(const String &resp, MemberInfo &out) {
   JsonObject fields = doc["fields"];
   if (fields.isNull()) return false;
 
-  out.name    = fields["name"]["stringValue"] | "";
+  // Name and Country
+  out.name = fields["name"]["stringValue"] | "";
   out.country = fields["country"]["stringValue"] | "";
 
-  // birthDate integerValue
+  // BirthDate
   out.birthDateUnix = 0;
   if (!fields["birthDate"].isNull() && !fields["birthDate"]["integerValue"].isNull()) {
     String v = fields["birthDate"]["integerValue"].as<String>();
     out.birthDateUnix = (int32_t)v.toInt();
   }
 
-  // batteryDueDate integerValue
+  // Battery Due Date
   out.batteryDueUnix = 0;
   if (!fields["batteryDueDate"].isNull() && !fields["batteryDueDate"]["integerValue"].isNull()) {
     String v = fields["batteryDueDate"]["integerValue"].as<String>();
     out.batteryDueUnix = (int32_t)v.toInt();
   }
 
-  // lastBatteryReplacementDate integerValue
+  // lastBatteryReplacementDate
   out.lastBatteryUnix = 0;
   if (!fields["lastBatteryReplacementDate"].isNull() && !fields["lastBatteryReplacementDate"]["integerValue"].isNull()) {
     String v = fields["lastBatteryReplacementDate"]["integerValue"].as<String>();
     out.lastBatteryUnix = (int32_t)v.toInt();
   }
 
-  // visaType string
+  // visaType
   out.visaType = fields["visaType"]["stringValue"] | "";
 
   // canFinancial
   out.canFinancial = fields["canFinancialTransactions"]["booleanValue"] | false;
 
-  // tendency: integer 0~10
+  // tendency
   out.tendency = 0;
   if (!fields["tendency"].isNull() && !fields["tendency"]["integerValue"].isNull()) {
     String v = fields["tendency"]["integerValue"].as<String>();
@@ -435,7 +439,9 @@ bool parseMemberFromFirestore(const String &resp, MemberInfo &out) {
   return true;
 }
 
-// name 필드 기반 Firestore 쿼리 (runQuery 사용)
+// Use name string to get database infos
+// Use NFC to check the assigned user name on the NFC tag 
+// -> search the name through DB and get the data
 bool firestoreGetMemberByName(const String &name, MemberInfo &out) {
   if (WiFi.status() != WL_CONNECTED) return false;
 
@@ -459,7 +465,6 @@ bool firestoreGetMemberByName(const String &name, MemberInfo &out) {
   https.addHeader("Authorization", "Bearer " + g_idToken);
   https.addHeader("Content-Type", "application/json");
 
-  // structuredQuery body: SELECT * FROM members WHERE name == <name> LIMIT 1
   StaticJsonDocument<512> root;
   JsonObject sq = root.createNestedObject("structuredQuery");
 
@@ -516,7 +521,6 @@ bool firestoreGetMemberByName(const String &name, MemberInfo &out) {
     return false;
   }
 
-  // docObj는 단일 문서 JSON이므로, serialize해서 기존 파서 재사용
   String docStr;
   serializeJson(docObj, docStr);
 
@@ -525,7 +529,6 @@ bool firestoreGetMemberByName(const String &name, MemberInfo &out) {
     return false;
   }
 
-  // docPath 채우기
   String fullName = docObj["name"] | "";
   if (fullName.length()) {
     int pos = fullName.indexOf("/documents/");
@@ -539,7 +542,8 @@ bool firestoreGetMemberByName(const String &name, MemberInfo &out) {
   return true;
 }
 
-// ★ lastBatteryReplacementDate만 PATCH ★
+// Update 'lastBatteryReplacementDate'
+// For recalcualting the battery percentage
 bool firestorePatchLastReplacementDate(const String &docPath, int32_t lastRep) {
   if (WiFi.status() != WL_CONNECTED) return false;
 
@@ -584,10 +588,10 @@ bool firestorePatchLastReplacementDate(const String &docPath, int32_t lastRep) {
   return true;
 }
 
-// ----------------------------------------------------
-// 배터리 잔량 계산 (lastRep ~ due 사이에서 현재 시간을 100 → 0으로 맵핑)
-// ----------------------------------------------------
-int computeBatteryPercent(const MemberInfo &m) {
+// Battery percentage calcualation
+// Map the 'lastBatteryReplacementDate' and 'batteryDueDate'
+// and use current date to check the precentage
+int calBatteryPercent(const MemberInfo &m) {
   if (m.lastBatteryUnix <= 0 || m.batteryDueUnix <= 0) return -1;
   if (m.batteryDueUnix <= m.lastBatteryUnix) return -1;
 
@@ -609,10 +613,8 @@ int computeBatteryPercent(const MemberInfo &m) {
   return pct;
 }
 
-// ----------------------------------------------------
 // Display layout / rendering
-// ----------------------------------------------------
-void computeLayout() {
+void basicLayout() {
   int16_t W = gfx->width();
   int16_t H = gfx->height();
 
@@ -623,43 +625,35 @@ void computeLayout() {
   int16_t cardW = W - sideMargin * 2;
   int16_t cardH = H - top - bottomMargin;
 
-  // 전체 카드(터치 영역)
+  // Touch area set
   touchBox.x = sideMargin;
   touchBox.y = top;
   touchBox.w = cardW;
   touchBox.h = cardH;
 
-  // 좌/우 절반으로 분할
+  // Split in half
+  // Left, member(citizen) info
   int16_t halfW = cardW / 2;
   memberBox.x = touchBox.x + 8;
   memberBox.y = touchBox.y + 8;
   memberBox.w = halfW - 12;
   memberBox.h = cardH - 16;
-
+  // Right, NFC(battery) info
   nfcBox.x = touchBox.x + halfW + 4;
   nfcBox.y = touchBox.y + 8;
   nfcBox.w = cardW - halfW - 12;
   nfcBox.h = cardH - 16;
-
-  // 우측 상단 Reset 버튼 (지금은 UI만)
-  const int16_t btnMarginX = 8;
-  const int16_t btnMarginY = 3;
-  const int16_t btnW = 70;
-  const int16_t btnH = BAR_H - btnMarginY * 2;
-
-  servoResetBtnRect.w = btnW;
-  servoResetBtnRect.h = btnH;
-  servoResetBtnRect.x = W - btnMarginX - btnW; 
-  servoResetBtnRect.y = btnMarginY; 
 }
 
-// --- 글자 크기: 헤더는 2, 본문은 1 (중간 정도 크기) ---
+// GFX, draw member(citizen) info on the screen
+// Need to draw the info manually
+// If the info string goes over the box, GFX can't control it...
 void drawMemberInfo(const MemberInfo &m) {
-  // 패널 배경
+  // Change box design
   gfx->fillRect(memberBox.x, memberBox.y, memberBox.w, memberBox.h, COLOR_PANEL);
   gfx->drawRect(memberBox.x, memberBox.y, memberBox.w, memberBox.h, COLOR_WHITE);
 
-  // 헤더 바
+  // Title header box
   int16_t headerH = 32;
   gfx->fillRect(memberBox.x, memberBox.y, memberBox.w, headerH, COLOR_ACCENT);
   gfx->drawLine(memberBox.x, memberBox.y + headerH, 
@@ -667,23 +661,24 @@ void drawMemberInfo(const MemberInfo &m) {
 
   gfx->setFont(u8g2_font_6x10_tr);
 
-  // 헤더 텍스트: 크게(2배)
+  // header text
   gfx->setTextSize(2);
   gfx->setTextColor(COLOR_BLACK);
   gfx->setCursor(memberBox.x + 6, memberBox.y + 22);
   gfx->print("CITIZEN INFO");
 
-  // 본문 시작 위치
+  // Info text start point
   const int padX = 8;
   const int padY = headerH + 18;
   int16_t x = memberBox.x + padX;
   int16_t y = memberBox.y + padY;
 
-  // 본문은 1배 크기
   gfx->setTextSize(1);
 
+  // If there's no data
+  // When user didn't assign there name on the database, but only on NFC
+  // Just in case...
   if (!m.loaded) {
-    // 데이터가 없을 때 안내 문구
     gfx->setTextColor(COLOR_TEXT_DIM);
     gfx->setCursor(x, y);
     gfx->print("Tap Replacement tag");
@@ -700,6 +695,9 @@ void drawMemberInfo(const MemberInfo &m) {
 
   int lineH = 16;
 
+  // GFX, draw infos on each line
+  // Label, data
+  // And the line height(manually)
   auto drawLabelValue = [&](const char* label, const String &value, int line) {
     int16_t ly = y + line * lineH;
     gfx->setCursor(x, ly);
@@ -711,23 +709,20 @@ void drawMemberInfo(const MemberInfo &m) {
     gfx->print(value);
   };
 
-  // ★ 화면에는 +100년 더한 날짜로 표시 ★
-  drawLabelValue("Name",     m.name,                             0);
-  drawLabelValue("Country",  m.country,                          1);
-  drawLabelValue("Birth",    unixToMDYPlus100(m.birthDateUnix),  2);
-  drawLabelValue("Due",      unixToMDYPlus100(m.batteryDueUnix), 3);
-  drawLabelValue("Last rep", unixToMDYPlus100(m.lastBatteryUnix),4);
-
+  // GFX, display every infos
+  drawLabelValue("Name", m.name, 0);
+  drawLabelValue("Country", m.country, 1);
+  drawLabelValue("Birth", unixToMDYOffset100(m.birthDateUnix), 2);
+  drawLabelValue("Due", unixToMDYOffset100(m.batteryDueUnix), 3);
+  drawLabelValue("Last rep", unixToMDYOffset100(m.lastBatteryUnix),4);
   String visaStr = (m.visaType.length() > 0) ? m.visaType : String("NONE");
-  drawLabelValue("Visa",     visaStr,                            5);
-
-  drawLabelValue("Finance",  m.canFinancial ? "YES" : "NO",      6);
-
+  drawLabelValue("Visa", visaStr, 5);
+  drawLabelValue("Finance", m.canFinancial ? "YES" : "NO", 6);
   String tend = String(m.tendency) + "/10";
-  drawLabelValue("Tendency", tend,                               7);
+  drawLabelValue("Tendency", tend, 7);
 
-  // ★ 배터리 잔량 바 추가 ★
-  int pct = computeBatteryPercent(m);
+  // Battery percentage indicator
+  int pct = calBatteryPercent(m);
   if (pct >= 0) {
     int16_t baseY = y + 8 * lineH + 4;
     gfx->setTextColor(COLOR_TEXT_DIM);
@@ -739,18 +734,15 @@ void drawMemberInfo(const MemberInfo &m) {
     int barX = x;
     int barY = baseY + 6;
 
-    // 바 테두리
     gfx->drawRect(barX, barY, barW, barH, COLOR_WHITE);
-    // 채워진 부분
     int fillW = barW * pct / 100;
 
-    uint16_t barColor = COLOR_ACCENT; // 기본 초록
+    uint16_t barColor = COLOR_ACCENT;
     if (pct <= 30) barColor = COLOR_RED;
     else if (pct <= 60) barColor = COLOR_YELLOW;
 
     gfx->fillRect(barX + 1, barY + 1, fillW - 2 > 0 ? fillW - 2 : 0, barH - 2, barColor);
 
-    // 오른쪽에 % 텍스트
     gfx->setTextColor(COLOR_WHITE);
     gfx->setCursor(barX + barW - 36, baseY);
     gfx->print(pct);
@@ -761,11 +753,11 @@ void drawMemberInfo(const MemberInfo &m) {
 }
 
 void drawNFCInfo() {
-  // 패널 배경
+  // Change box design
   gfx->fillRect(nfcBox.x, nfcBox.y, nfcBox.w, nfcBox.h, COLOR_PANEL);
   gfx->drawRect(nfcBox.x, nfcBox.y, nfcBox.w, nfcBox.h, COLOR_WHITE);
 
-  // 헤더 바 (한 줄 "BATTERY DATA")
+  // Title header box
   int16_t headerH = 32;
   gfx->fillRect(nfcBox.x, nfcBox.y, nfcBox.w, headerH, COLOR_ACCENT2);
   gfx->drawLine(nfcBox.x, nfcBox.y + headerH, 
@@ -773,23 +765,21 @@ void drawNFCInfo() {
 
   gfx->setFont(u8g2_font_6x10_tr);
 
-  // 헤더 텍스트: 2배, 한 줄
+  // header text
   gfx->setTextSize(2);
   gfx->setTextColor(COLOR_WHITE);
   gfx->setCursor(nfcBox.x + 6, nfcBox.y + 22);
   gfx->print("BATTERY DATA");
 
-  // 본문 시작 위치
   const int padX = 8;
   const int padY = headerH + 18;
   int16_t x = nfcBox.x + padX;
   int16_t y = nfcBox.y + padY;
 
-  // 본문은 1배 크기
   gfx->setTextSize(1);
   int lineH = 16;
 
-  // 단계 안내
+  // Step indicator
   gfx->setTextColor(COLOR_TEXT_DIM);
   gfx->setCursor(x, y);
   gfx->print("Step 1: Identification");
@@ -797,7 +787,7 @@ void drawNFCInfo() {
   gfx->setCursor(x, y + lineH);
   gfx->print("Step 2: Replacement Confirm");
 
-  // 현재 상태
+  // Current steps
   gfx->setTextColor(COLOR_WHITE);
   gfx->setCursor(x, y + lineH * 3);
   gfx->print("Status:");
@@ -805,27 +795,27 @@ void drawNFCInfo() {
   gfx->setCursor(x, y + lineH * 4);
   gfx->print(g_lastNFCStatus);
 
-  // ★ 현재 사이클의 대상 클라이언트 이름 표시 ★
+  // Citizen name from NFC tag
   if (g_hasFirstTag && g_firstTagText.length() > 0) {
     gfx->setTextColor(COLOR_TEXT_DIM);
     gfx->setCursor(x, y + lineH * 6);
-    gfx->print("Client:");
+    gfx->print("Citizen:");
 
     gfx->setTextColor(COLOR_WHITE);
     gfx->setCursor(x + 60, y + lineH * 6);
     gfx->print(g_firstTagText);
   }
 
-  // ★ DB 업데이트 결과 정보 표시 ★
+  // DB update process infos
   if (g_dbUpdateAttempted) {
     gfx->setTextColor(COLOR_TEXT_DIM);
     gfx->setCursor(x, y + lineH * 7);
-    gfx->print("Last rep(new):");
+    gfx->print("New Replacement:");
 
     gfx->setTextColor(COLOR_WHITE);
     gfx->setCursor(x + 110, y + lineH * 7);
     if (g_dbLastRepNew > 0) {
-      gfx->print(unixToMDY(g_dbLastRepNew)); // 실제 DB에 저장된 날짜(원래 값)
+      gfx->print(unixToMDY(g_dbLastRepNew));
     } else {
       gfx->print("-");
     }
@@ -834,25 +824,28 @@ void drawNFCInfo() {
   gfx->setFont();
 }
 
-void renderMemberScreen() {
-  computeLayout();
+// GFX, render info boxes
+// Maing box
+// Left, Citizen info box
+// Right, Battery info box
+void renderGFXScreen() {
+  basicLayout();
 
-  // 전체 배경
   gfx->fillScreen(COLOR_BG);
 
-  // 카드 그림자
+  // Box shadow, draw it once before the box
   gfx->fillRect(touchBox.x + 4, touchBox.y + 4, touchBox.w, touchBox.h, COLOR_BLACK);
-  // 카드 본체
+  //Actual box
   gfx->fillRect(touchBox.x, touchBox.y, touchBox.w, touchBox.h, COLOR_PANEL_IN);
   gfx->drawRect(touchBox.x, touchBox.y, touchBox.w, touchBox.h, COLOR_WHITE);
 
-  // 좌측: Citizen Info
+  // Left, citizen
   drawMemberInfo(currentMember);
 
-  // 우측: Battery Data Status
+  // Right, battery
   drawNFCInfo();
 
-  // 상단 WiFi 바
+  // Top, WIFI
   drawWifiStatusBar(true);
 }
 
@@ -878,28 +871,17 @@ bool mapTouchToScreen(const TS_Point &p, int16_t &sx, int16_t &sy) {
   return true;
 }
 
+// Debugging purpose
+// Tried to use this for extra button on the top or side,
+// but the orientation worked weird, so didn't improve more
 void printTouchDebug(const TS_Point &p, int16_t sx, int16_t sy, bool inBox) {
   Serial.printf("RAW(%d,%d) -> SCREEN(%d,%d) inBox=%d | OBS X[%d..%d] Y[%d..%d]\n",
                 p.x, p.y, sx, sy, inBox ? 1 : 0,
                 obsMinX, obsMaxX, obsMinY, obsMaxY);
 }
 
-// member load and transition (index 기반 – 디버그용)
-bool loadMemberByIndex(int idx) {
-  currentMember = MemberInfo{};
-  currentMember.docPath = MEMBER_DOCS[idx];
 
-  int code;
-  String resp;
-  bool ok = firestoreGetDocumentRaw(currentMember.docPath, code, resp);
-  if (!ok) {
-    currentMember.loaded = false;
-    return false;
-  }
-  return parseMemberFromFirestore(resp, currentMember);
-}
-
-// name 기반 멤버 로딩 (Firestore runQuery 이용)
+// Load name from DB
 bool loadMemberByName(const String &name) {
   MemberInfo m;
   bool ok = firestoreGetMemberByName(name, m);
@@ -909,48 +891,50 @@ bool loadMemberByName(const String &name) {
   return true;
 }
 
-void nextMember() {
-  currentMemberIndex = (currentMemberIndex + 1) % MEMBER_COUNT;
-  loadMemberByIndex(currentMemberIndex);
-  renderMemberScreen();
-}
+// ---------------------------------------------
+// ---------------------------------------------
 
-// ----------------------------------------------------
-// PN532 + NTAG 코드 (MK 헤더 + 포맷 후 쓰기 + Ten 제거 하이브리드 읽기)
-// ----------------------------------------------------
+// PN532, NFC read.write module
 
-// PN532 SPI wiring (VSPI)
+// PN532 SPI wiring
+// Make sure to togle the physical switch on the module
+// It controls I2C, SPI states
 #define PN532_SCK   18
 #define PN532_MISO  19
 #define PN532_MOSI  23
-#define PN532_SS    21   // CS
+// SS = CS on teh board
+#define PN532_SS    21
 
 // Switch gate (INPUT_PULLUP)
-#define NFC_ENABLE_PIN 35  // switch: one side -> GPIO35, other side -> GND
+// Just followed the tutorial pin set up
+#define NFC_ENABLE_PIN 35
 
-// ===== User region (NTAG2xx) =====
-// page 4: header (4 bytes)
-// page 5~9: payload (5 pages * 4 = 20 bytes)
+// NTAG page block set up
+// Before page 4, NFC stores basic infos
+// which I should not touch
 static const uint8_t START_PAGE = 4;
 static const uint8_t END_PAGE   = 9;
 
+// NFC string reading 'header' debugging
+// Using header MK(from my name haha) to filter the string from NFC
+
 static const uint8_t SIG0 = 'M';
 static const uint8_t SIG1 = 'K';
+// String g_writeText = String("Minkyu Kim");
+String g_writeText = String("");
 
-String g_writeText = String("Minkyu Kim");
-
-// ---- tag hold / re-arm ----
+// tag hold and re attach delay
 bool tagHeld = false;
 uint8_t lastUid[7] = {0};
 uint8_t lastUidLen = 0;
 
 uint32_t lastSeenMs = 0;
-const uint32_t TAG_RELEASE_MS = 600; // if tag not seen for this long => consider removed
+const uint32_t TAG_RELEASE_MS = 600;
 
 // PN532
 Adafruit_PN532 nfc(PN532_SS);
 
-// ---- utils ----
+// NFC utilities
 static void printHex(const uint8_t* data, uint8_t len) {
   for (uint8_t i = 0; i < len; i++) {
     if (data[i] < 0x10) Serial.print("0");
@@ -958,14 +942,13 @@ static void printHex(const uint8_t* data, uint8_t len) {
     if (i != len - 1) Serial.print(" ");
   }
 }
-
 static bool uidEqual(const uint8_t* a, uint8_t alen, const uint8_t* b, uint8_t blen) {
   if (alen != blen) return false;
   for (uint8_t i = 0; i < alen; i++) if (a[i] != b[i]) return false;
   return true;
 }
 
-// ---- 안정성: 페이지 read/write retry ----
+// page read retry, for stability
 bool readPageRetry(uint8_t page, uint8_t out4[4], int tries = 8) {
   for (int i = 0; i < tries; i++) {
     if (nfc.ntag2xx_ReadPage(page, out4)) return true;
@@ -973,9 +956,7 @@ bool readPageRetry(uint8_t page, uint8_t out4[4], int tries = 8) {
   }
   return false;
 }
-
-// NOTE: Adafruit_PN532::ntag2xx_WritePage takes (uint8_t*), not (const uint8_t*)
-// so we copy to a non-const buffer.
+// page write retry, for stability
 bool writePageRetry(uint8_t page, const uint8_t in4[4], int tries = 8) {
   uint8_t buf[4];
   memcpy(buf, in4, 4);
@@ -987,7 +968,8 @@ bool writePageRetry(uint8_t page, const uint8_t in4[4], int tries = 8) {
   return false;
 }
 
-// ---- 태그가 “진짜 안정적으로 붙어있음” 확인 (연속 3회 동일 UID) ----
+// Confirming is the tag staying on the same spot
+// check it 3 times straight to confirm
 bool waitStableTag(uint8_t uidOut[7], uint8_t &uidLenOut, uint32_t timeoutMs = 2000) {
   uint8_t uid[7]; uint8_t uidLen = 0;
   uint8_t last[7]; uint8_t lastLen = 0;
@@ -1013,7 +995,8 @@ bool waitStableTag(uint8_t uidOut[7], uint8_t &uidLenOut, uint32_t timeoutMs = 2
         if (stableCount >= 3) {
           memcpy(uidOut, last, lastLen);
           uidLenOut = lastLen;
-          delay(80); // RF 안정화
+          // Increase the delay, if need more stability
+          delay(80);
           return true;
         }
       }
@@ -1023,9 +1006,13 @@ bool waitStableTag(uint8_t uidOut[7], uint8_t &uidLenOut, uint32_t timeoutMs = 2
   return false;
 }
 
-// ---- 기존 데이터 삭제(우리 구역만 포맷) ----
+// Deleting original NFC data
+// [IMPORTANT]
+// When write data on NFC, it just overwrite the data
+// It means, if there's any leff-over strong after the written string, it's stil there
+// For preventing it, delete(format) the previous data first
 bool clearUserRegion() {
-  Serial.println("[FORMAT] clear user region pages 4..9");
+  Serial.println("[FORMAT] clear pages 4-9");
   uint8_t zero4[4] = {0,0,0,0};
   for (uint8_t p = START_PAGE; p <= END_PAGE; p++) {
     if (!writePageRetry(p, zero4)) {
@@ -1038,7 +1025,7 @@ bool clearUserRegion() {
   return true;
 }
 
-// ---- String 쓰기 (쓰기 전 항상 포맷, MK 헤더 사용) ----
+// NFC write
 bool writeTextToTag(const String &text) {
   size_t len = text.length();
   if (len > 255) len = 255;
@@ -1050,13 +1037,13 @@ bool writeTextToTag(const String &text) {
     return false;
   }
 
-  // ★ 포맷 후 쓰기 ★
+  // Make sure to clear/delete the previous data
   if (!clearUserRegion()) {
     Serial.println("[WRITE] clearUserRegion failed");
     return false;
   }
 
-  // header: 'M', 'K', length, 0x00
+  // add header
   uint8_t header[4] = { SIG0, SIG1, (uint8_t)len, 0x00 };
   if (!writePageRetry(START_PAGE, header, 12)) {
     Serial.println("[WRITE] header write failed");
@@ -1085,14 +1072,14 @@ bool writeTextToTag(const String &text) {
   return true;
 }
 
-// ---- String 읽기 (MK 헤더 기반, strict) ----
+// NFC read, with header
 bool readTextFromTagStrict(String &outText) {
   outText = "";
 
   uint8_t header[4];
   if (!readPageRetry(START_PAGE, header, 12)) return false;
 
-  // 시그니처 확인
+  // check header
   if (header[0] != SIG0 || header[1] != SIG1) {
     Serial.print("[READ STRICT] invalid header: ");
     Serial.print(header[0], HEX); Serial.print(" ");
@@ -1125,10 +1112,14 @@ bool readTextFromTagStrict(String &outText) {
   return true;
 }
 
-// ---- MK 헤더 없이 "대충" 읽기 (Ten 프리픽스 제거용) ----
+// NFC read without header
+// Purpose: writing data with header(M,K) requires a  proces through PN532
+// But, for participants, it's easier to assign their name with NFC Tool on their phone
+// This function allows participants to set up their name string on NFC tag easily
+// After once it written by this board, doesn't requires it anymore
+// If I add an additional NFC data write tool for participants, this function doesn't need anymore
 bool readTextFromTagLoose(String &outText) {
   outText = "";
-  // page 4~9 전체를 읽고, ASCII 범위(0x20~0x7E)만 추출
   for (uint8_t p = START_PAGE; p <= END_PAGE; p++) {
     uint8_t buf[4];
     if (!readPageRetry(p, buf)) {
@@ -1152,9 +1143,11 @@ bool readTextFromTagLoose(String &outText) {
     return false;
   }
 
-  // 앞에 'Ten' 붙어 있을 경우 제거 (TenAugie Fesh → Augie Fesh)
+  // Remove 'Ten' string in front
+  // With 'NFC Tool' from the phone, it always includes 'Ten' string
+  // Remove it to read the correct string in NFC
   if (outText.startsWith("Ten")) {
-    outText.remove(0, 3); // "Ten" 제거
+    outText.remove(0, 3);
     outText.trim();
   }
 
@@ -1164,18 +1157,19 @@ bool readTextFromTagLoose(String &outText) {
   return (outText.length() > 0);
 }
 
-// ---- 하이브리드 읽기: 1) MK strict → 2) loose(+Ten 제거) ----
+// NFC read, try both function for stability
 bool readTextFromTagHybridOnce(String &outText) {
-  // 1. MK 헤더 strict 시도
+  // Try with header
+  // -> better performance
   if (readTextFromTagStrict(outText)) {
-    Serial.print("[READ HYBRID] strict(MK) OK: ");
+    Serial.print("[READ] With header: ");
     Serial.println(outText);
     return (outText.length() > 0);
   }
 
-  // 2. 실패하면 loose 모드 (Ten 제거 포함)
+  // If fail first, try with out header
   if (readTextFromTagLoose(outText)) {
-    Serial.print("[READ HYBRID] loose OK: ");
+    Serial.print("READ] Without header: ");
     Serial.println(outText);
     return true;
   }
@@ -1183,6 +1177,7 @@ bool readTextFromTagHybridOnce(String &outText) {
   return false;
 }
 
+// NFC read, hybrid multiple attempt
 bool readTextFromTagHybridRobust(String &outText) {
   for (int attempt = 0; attempt < 3; attempt++) {
     if (readTextFromTagHybridOnce(outText)) {
@@ -1190,41 +1185,39 @@ bool readTextFromTagHybridRobust(String &outText) {
     }
     delay(60);
   }
-  Serial.println("[READ HYBRID] failed after retries");
+  Serial.println("[READ] Failed");
   return false;
 }
 
-// ---- 스위치 게이트 ----
 bool nfcEnabled() {
-  // INPUT_PULLUP: 스위치 ON(=GND 연결) -> LOW
   return (digitalRead(NFC_ENABLE_PIN) == LOW);
 }
 
-// ★ 첫 번째 태그 처리 공용 함수
+//First NFC tag action
 void handleFirstNfcTag(const String &text) {
-  g_firstTagText      = text;              // 이름 저장
-  g_writeText         = g_firstTagText;    // 두 번째 태그에 쓸 내용
-  g_hasFirstTag       = true;
-  g_secondWriteDone   = false;
+  g_firstTagText = text;
+  // Save the tag string for writing on the replaced NFC tag
+  g_writeText  = g_firstTagText;
+  g_hasFirstTag  = true;
+  g_secondWriteDone = false;
   g_secondTagRemovedAt = 0;
 
-  // 두 번째 태그는 아직 허용되지 않음 (화면 터치 후에만 허용)
+  // Allow second tag after the replacement process
+  // (touch screen)
   g_readyForSecondTag = false;
 
-  // DB 업데이트 상태 초기화
+  // Reset DB update state
   g_dbUpdateAttempted = false;
   g_dbUpdateSuccess   = false;
   g_dbLastRepNew      = 0;
 
-  // 이름으로 Firestore 멤버 로딩
+  // Load firestore date based on the name on NFC
   bool ok = loadMemberByName(g_firstTagText);
 
   if (ok) {
     g_lastNFCStatus = "First tag OK";
   } else {
     g_lastNFCStatus = "Name not found";
-    // 매칭 실패 시에도 currentMember는 빈 상태로 두고,
-    // 이후에는 DB 업데이트 불가 → 두 번째 태그 때도 No member to update 가능
   }
 
   g_lastNFCText = g_firstTagText;
@@ -1232,12 +1225,11 @@ void handleFirstNfcTag(const String &text) {
   Serial.print("[Replacement] First tag name = ");
   Serial.println(g_firstTagText);
 
-  renderMemberScreen();
+  renderGFXScreen();
 }
 
-// 2단계 Replacement UX 포함 PN532 처리
+// Handling NFC after the first stage
 void handleNFC() {
-  // 스위치로 Replacement 리더 끈 상태면, 감지 상태만 초기화
   if (!nfcEnabled()) {
     tagHeld = false;
     lastUidLen = 0;
@@ -1246,24 +1238,18 @@ void handleNFC() {
     return;
   }
 
-  // 1) 현재 태그 존재 여부 먼저 확인
+  // Check NFC presence once more
   uint8_t probeUid[7]; 
   uint8_t probeLen = 0;
   bool present = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, probeUid, &probeLen, 40);
 
   if (!present) {
-    // 태그가 더 이상 안 보이는데, 이전에 붙어있던 상태였다면 → "떼어졌음"
+    // Check is NFC still on teh spot
     if (tagHeld && lastSeenMs != 0 && (millis() - lastSeenMs) > TAG_RELEASE_MS) {
       tagHeld = false;
       lastUidLen = 0;
 
-      // ★ 여기서는 currentMember를 비우지 않는다 ★
-      // 이유: 첫 번째 카드 떼고 두 번째 카드 준비하는 동안에도
-      //       왼쪽 Citizen Info는 살아 있어야 하고,
-      //       두 번째 태그 시 DB 업데이트에 사용되어야 함.
-
       if (g_secondWriteDone && g_secondTagRemovedAt == 0) {
-        // 두 번째 태그까지 작업 끝난 뒤에 떨어진 첫 순간
         g_secondTagRemovedAt = millis();
         g_lastNFCStatus = "Second tag removed";
       } else {
@@ -1271,16 +1257,15 @@ void handleNFC() {
       }
       g_lastNFCText = "";
       g_lastNFCUid  = "";
-      renderMemberScreen();
+      renderGFXScreen();
     }
     delay(20);
     return;
   } else {
-    // 태그가 보이는 동안에는 lastSeenMs 갱신
     lastSeenMs = millis();
   }
 
-  // 2) 안정 태그(연속 동일 UID 확인)
+  // Check NFC's UID more
   uint8_t uid[7]; 
   uint8_t uidLen = 0;
   bool stable = waitStableTag(uid, uidLen, 1500);
@@ -1291,7 +1276,7 @@ void handleNFC() {
 
   lastSeenMs = millis();
 
-  // 같은 태그를 계속 대고 있으면 반복 처리 방지
+  // Preventing reading same data from NFC multiple times
   if (tagHeld && uidEqual(uid, uidLen, lastUid, lastUidLen)) {
     return;
   }
@@ -1300,7 +1285,8 @@ void handleNFC() {
   memcpy(lastUid, uid, uidLen);
   lastUidLen = uidLen;
 
-  // UID 문자열 (화면에는 안 쓰지만 유지)
+  // UID string
+  // For desbugging, and saved for just in case
   String uidStr;
   uidStr.reserve(uidLen * 3);
   for (uint8_t i = 0; i < uidLen; i++) {
@@ -1315,13 +1301,13 @@ void handleNFC() {
   printHex(uid, uidLen);
   Serial.println();
 
-  // 3) 태그 안의 텍스트 읽기 (MK 우선 + Ten 제거 fallback)
+  // NFC read process
   String text;
   if (!readTextFromTagHybridRobust(text)) {
     Serial.println("[Replacement READ] failed");
     g_lastNFCStatus = "Read failed";
     g_lastNFCText   = "";
-    renderMemberScreen();
+    renderGFXScreen();
     delay(100);
     return;
   }
@@ -1329,29 +1315,17 @@ void handleNFC() {
   Serial.print("[Replacement READ] text = ");
   Serial.println(text);
 
-  // 4) 단계에 따라 분기
+  // Process starts
   if (!g_hasFirstTag) {
-    // ==============================
-    // 1단계: 첫 번째 태그
-    // ==============================
     handleFirstNfcTag(text);
   }
   else if (!g_secondWriteDone) {
-    // ==============================
-    // 2단계: 아직 두 번째 쓰기 전 상태
-    // ==============================
     if (!g_readyForSecondTag) {
-      // 화면 터치(REPLACEMENT_START) 전에 다시 태그됨:
-      // → 새로운 첫 태그처럼 동작 (ID 교체) / 카운트 리셋 느낌
       Serial.println("[Replacement] New first tag (screen not touched yet)");
       handleFirstNfcTag(text);
       return;
     }
 
-    // 여기까지 왔다는 것은:
-    // - g_hasFirstTag == true
-    // - g_readyForSecondTag == true (화면 터치 완료)
-    // → 진짜 "2번째 태그" 로 인정
     Serial.print("[Replacement SECOND] write name = ");
     Serial.println(g_firstTagText);
 
@@ -1363,20 +1337,18 @@ void handleNFC() {
 
         g_lastNFCText     = after;
         g_secondWriteDone = true;
-        // 2번째 태그 처리 후에는 더 이상 second tag 대기 X
         g_readyForSecondTag = false;
 
-        // DB 업데이트 상태 초기화
         g_dbUpdateAttempted = false;
         g_dbUpdateSuccess   = false;
         g_dbLastRepNew      = 0;
 
-        // Firestore 업데이트 진행
+        // Update Firestore DB
+        // Update lastReplacementDate with current date
         if (currentMember.loaded && currentMember.docPath.length() > 0) {
-          // === 상태: DB 업데이트 시도 중 ===
           g_dbUpdateAttempted = true;
           g_lastNFCStatus     = "DB updating...";
-          renderMemberScreen();
+          renderGFXScreen();
 
           if (ensureTimeSynced()) {
             time_t nowT = time(nullptr);
@@ -1386,13 +1358,12 @@ void handleNFC() {
               if (firestorePatchLastReplacementDate(currentMember.docPath, lastRep)) {
                 Serial.println("[Replacement] Firestore lastReplacementDate updated");
 
-                // 로컬 캐시도 갱신해서 즉시 화면에 반영
                 currentMember.lastBatteryUnix = lastRep;
 
                 g_dbUpdateSuccess = true;
                 g_dbLastRepNew    = lastRep;
 
-                // 실제 DB에 입력된 날짜(원래 값, +100 아님)
+
                 String realDate = unixToMDY(lastRep);
                 g_lastNFCStatus = "DB OK";
                 Serial.print("[Replacement] DB OK date=");
@@ -1415,8 +1386,6 @@ void handleNFC() {
         } else {
           Serial.println("[Replacement] no loaded member to update");
           g_lastNFCStatus = "No member to update";
-          // g_dbUpdateAttempted는 false로 남겨도 되고 true로 남겨도 되는데,
-          // 여기서는 별도 DB 처리가 없으니 false로 둠
           g_dbUpdateAttempted = false;
         }
 
@@ -1431,11 +1400,10 @@ void handleNFC() {
       g_lastNFCText   = "";
     }
 
-    renderMemberScreen();
+    renderGFXScreen();
   }
   else {
-    // 이미 1단계 + 2단계 모두 끝난 상태에서 또 태그가 오면
-    // → 새 사이클을 시작하도록 전체 상태 리셋
+    // resetting the cycle to accept the new NFC tag
     Serial.println("[Replacement] New cycle start");
     g_hasFirstTag        = false;
     g_secondWriteDone    = false;
@@ -1451,22 +1419,21 @@ void handleNFC() {
     g_lastNFCText        = "";
     g_lastNFCUid         = "";
 
-    // 새 사이클 시작: currentMember 비우기
     currentMember        = MemberInfo{};
-    renderMemberScreen();
+    renderGFXScreen();
   }
 
   delay(150);
 }
 
 // ----------------------------------------------------
-// setup / loop (최종 통합)
 // ----------------------------------------------------
+// ----------------------------------------------------
+
 void setup() {
   Serial.begin(115200);
   delay(200);
 
-  // TFT 백라이트
   pinMode(TFT_BL, OUTPUT);
   digitalWrite(TFT_BL, HIGH);
 
@@ -1474,22 +1441,14 @@ void setup() {
   gfx->begin(40000000);
   gfx->setRotation(1);
 
-  // Touch (XPT2046) on HSPI
+  // Touch
   hspi.begin(TFT_SCK, TFT_MISO, TFT_MOSI);
   ts.begin(hspi);
 
-  // Replacement 리더용 GPIO (스위치)
   pinMode(NFC_ENABLE_PIN, INPUT_PULLUP);
-
-  // VSPI (PN532 전용)
   SPI.begin(PN532_SCK, PN532_MISO, PN532_MOSI, PN532_SS);
 
-  Serial.println("PN532 SPI NTAG (ESP32-32E Display board) - MK write + hybrid read");
-  Serial.print("Write text = ");
-  Serial.println(g_writeText);
-  Serial.println("1st tag = read name, 2nd tag = write MK name.");
-
-  // PN532 초기화
+  // PN532 init
   nfc.begin();
   uint32_t ver = nfc.getFirmwareVersion();
   if (!ver) {
@@ -1501,11 +1460,11 @@ void setup() {
   }
   nfc.SAMConfig();
 
-  // 처음엔 멤버 정보 비움
+  // Emptying the member info
   currentMember = MemberInfo{};
-  renderMemberScreen();
+  renderGFXScreen();
 
-  // WiFi / Firestore 준비
+  // WIFI connect
   connectWiFi();
   drawWifiStatusBar(true);
 
@@ -1520,7 +1479,7 @@ void setup() {
 
     if (firebaseSignIn()) {
       Serial.println("[AUTH] Firestore ready");
-      renderMemberScreen();
+      renderGFXScreen();
     } else {
       Serial.println("[AUTH] sign-in failed");
     }
@@ -1531,10 +1490,10 @@ void setup() {
 }
 
 void loop() {
-  // 상단 WiFi 상태 갱신
+  // Update WIFI status bar
   drawWifiStatusBar();
 
-  // WiFi 재연결 시도
+  // WIFI reconnect attempt
   if (WiFi.status() != WL_CONNECTED) {
     static uint32_t lastTry = 0;
     if (millis() - lastTry > 5000) {
@@ -1544,7 +1503,7 @@ void loop() {
     }
   }
 
-  // 터치 처리: 중앙 카드 전체를 터치 영역으로 사용
+  // Center box touch action
   bool touched = ts.touched();
   if (touched && !lastTouched && (millis() - lastTouchMs) > debounceMs) {
     TS_Point p = ts.getPoint();
@@ -1556,31 +1515,30 @@ void loop() {
     printTouchDebug(p, sx, sy, inMainBox);
 
     if (inMainBox) {
-      // 화면 터치 → REPLACEMENT_START 전송
+      // Send CMD serial to Arduino Nano
       sendToUnoCmd("REPLACEMENT_START");
 
-      // 이제부터 찍히는 태그는 "2번째 태그"로 인정 가능
+      // Release the secondtag bool
+      // So, can send 'SERVO_RESET' cmd serial
       g_readyForSecondTag = true;
 
-      // UX용 상태 반영
       g_lastNFCStatus = "Screen touched: ready 2nd tag";
-      renderMemberScreen();
+      renderGFXScreen();
     }
 
     lastTouchMs = millis();
   }
   lastTouched = touched;
 
-  // PN532 / Replacement 처리
+  // PN532 handling
   handleNFC();
 
-  // --- 두 번째 태그를 떼고 3초가 지나면 SERVO_RESET ---
+  // Count 3 sec after releasing the second tagging
+  // For resetting the servo position
   if (g_secondWriteDone && g_secondTagRemovedAt != 0) {
     if (millis() - g_secondTagRemovedAt >= 3000) {
-      // 3초 경과 → 서보 리셋
       sendToUnoCmd("SERVO_RESET");
 
-      // 다음 사이클을 위해 상태 초기화
       g_hasFirstTag        = false;
       g_secondWriteDone    = false;
       g_secondTagRemovedAt = 0;
@@ -1596,7 +1554,7 @@ void loop() {
       g_lastNFCStatus = "Replacement cycle done";
       g_lastNFCText   = "";
       g_lastNFCUid    = "";
-      renderMemberScreen();
+      renderGFXScreen();
     }
   }
 
