@@ -77,36 +77,35 @@ There are two directions I want to focus on:
 
 1. Making the penalties more real.
     
-    Currently, penalties only appear as text on the website. They do not create any real inconvenience for the participant. To fully express the dystopian atmosphere, the project needs a more physical or emotional sense of penalty. I feel the current version doesn't solve this issue enough.
+    Currently, penalties only appear as text on the website. They do not create any real inconvenience to the participant. To fully express the dystopian feature, the project needs a more physical or emotional sense of penalty. I feel the current version doesn't solve this issue enough.
     
 2. Expanding the scale of the installation.
     
-    The current hardware installation is miniature-sized. If the machine were larger, louder, and more mechanical, it would create a stronger sense of intimidation and better express the dystopian world. The limitation of scale is something I still want to improve.
+    The current hardware installation is miniature-sized. If the installation was larger, louder, and more mechanical, it would create a stronger sense of intimidation and better express the dystopian world. The limitation of scale is something I still need to improve.
 3. Auto-setting the last battery replacement date
     
-    Current Battery percentage is based on the 'Last Replacement Date' and 'Battery Due Date'. And 'Battery Due Date' is always depends on 'Last Replacement Date'. It mean, experiences are coming from the Last Replacement Date, and currently, I'm asking users to set it up manually. It has to be automatic for instant world diving.
+    Current Battery percentage is based on the 'Last Replacement Date' and 'Battery Due Date'. And 'Battery Due Date' is always depends on 'Last Replacement Date'. It means, experiences are coming from the Last Replacement Date, and currently, I'm asking participants to set it up manually. It has to be automatic for instant world diving.
 ---
 ---
 ---
 # Protocol Process
 ## Webpage side
-1. Participants submit their data via Google Form
-2. Owner(myself) import that data into the Firestore database
-3. Connect BMD website with Firestore database
-4. Render the infomations depends on the participant's name
-5. Webpage will keep update the current states
-6. If the participants receive the battery replacement order, go to the BMD replacement facility(the hardware installation)
+1. Participants submit their data thorugh BMD webpage
+2. Connect BMD website with Firestore database
+3. Render the infomations depends on the participant's name
+4. Webpage will keep update the current states
+5. If the participants receive the estimated battery replacement date, go to the BMD replacement facility(the hardware installation)
 ## Hardware side
 1. Put the right hand(battery holder attached) on the hand area
 2. Press the display panel
 3. It reads the NFC tag info and indentify who the current participant is
 4. If that participant needs to replace the battery, it proceed the replacement protocol
-5. After the replacement, it automatically update your battery state on the database
+5. After the replacement, it automatically update participant's battery state on the database
 ---
 ---
 ---
 # Circuit Diagram
-![Diagram](https://i.ibb.co/vChnLSbN/BMD-circuit.png)
+![Diagram](https://i.ibb.co/PKjgDn4/BMD-circuit.png)
 
 
 # MCU Setting

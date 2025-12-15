@@ -1,4 +1,3 @@
-
 import "../style.css";
 import { useEffect, useMemo, useState } from "react";
 import { db } from "../firebaseConfig.js";
@@ -625,7 +624,7 @@ export function App() {
               // Creating new citizen data
               <>
                 <h3 className="sectionTitle">
-                  New Citiznen Registration: {newMemberName}
+                  New Citizen Registration: {newMemberName}
                 </h3>
 
                 <form
