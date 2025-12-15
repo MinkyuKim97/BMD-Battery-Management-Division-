@@ -105,6 +105,10 @@ There are two directions I want to focus on:
 ---
 ---
 ---
+# Circuit Diagram
+![Diagram](https://i.ibb.co/vChnLSbN/BMD-circuit.png)
+
+
 # MCU Setting
 ## ESP32 - 3.5 inch LVGL
 ### Board Info
