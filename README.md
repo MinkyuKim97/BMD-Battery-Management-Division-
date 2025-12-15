@@ -154,7 +154,7 @@ https://store-usa.arduino.cc/products/arduino-nano?srsltid=AfmBOoph8_jaY7GA4x4Ya
 ### Library Manager
 1. servo.h
 
-## Required components
+### Required components
 1. MG90S micro servo *4
 2. HD2012MG 20kg torque servo *1
 3. PN532, NFC read/write module

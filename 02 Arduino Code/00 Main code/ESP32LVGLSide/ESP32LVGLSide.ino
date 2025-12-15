@@ -817,7 +817,7 @@ void drawNFCInfo() {
     gfx->setTextColor(COLOR_WHITE);
     gfx->setCursor(x + 110, y + lineH * 7);
     if (g_dbLastRepNew > 0) {
-      gfx->print(unixToMDY(g_dbLastRepNew));
+      gfx->print(unixToMDYOffset100(g_dbLastRepNew));
     } else {
       gfx->print("-");
     }
