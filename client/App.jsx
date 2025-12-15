@@ -625,7 +625,7 @@ export function App() {
               // Creating new citizen data
               <>
                 <h3 className="sectionTitle">
-                  New Citizne Registration: {newMemberName}
+                  New Citiznen Registration: {newMemberName}
                 </h3>
 
                 <form

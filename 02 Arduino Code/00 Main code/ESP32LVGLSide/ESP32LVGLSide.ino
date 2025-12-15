@@ -123,6 +123,7 @@ struct MemberInfo {
   int32_t lastBatteryUnix = 0;
 
   String visaType;
+  String visaTypeOriginal;
   bool canFinancial = false;
 
   int tendency = 0;
@@ -294,7 +295,7 @@ void drawWifiStatusBar(bool force = false) {
 
   // Right side, BMD text
   gfx->setTextColor(COLOR_TEXT_DIM);
-  gfx->setCursor(W - 80, 16);
+  gfx->setCursor(W - 160, 16);
   gfx->print("BMD Replacement Facility");
 
   gfx->setFont();
@@ -424,6 +425,8 @@ bool parseMemberFromFirestore(const String &resp, MemberInfo &out) {
 
   // visaType
   out.visaType = fields["visaType"]["stringValue"] | "";
+  // visaType
+  out.visaTypeOriginal = fields["visaTypeOriginal"]["stringValue"] | "";
 
   // canFinancial
   out.canFinancial = fields["canFinancialTransactions"]["booleanValue"] | false;
@@ -542,11 +545,14 @@ bool firestoreGetMemberByName(const String &name, MemberInfo &out) {
   return true;
 }
 
-// Update 'lastBatteryReplacementDate'
-// For recalcualting the battery percentage
-bool firestorePatchLastReplacementDate(const String &docPath, int32_t lastRep) {
+// Update 'lastBatteryReplacementDate', Financial state, and visa state
+// For recalcualting the battery percentage and displaying
+bool firestorePatchAfterReplacement(
+  const String &docPath,
+  int32_t lastRep,
+  const String &visaTypeOriginal
+) {
   if (WiFi.status() != WL_CONNECTED) return false;
-
   if (g_idToken.length() == 0 || millis() > g_tokenExpiryMs) {
     if (!firebaseSignIn()) return false;
   }
@@ -559,33 +565,29 @@ bool firestorePatchLastReplacementDate(const String &docPath, int32_t lastRep) {
              + FIREBASE_PROJECT_ID
              + "/databases/(default)/documents/"
              + docPath
-             + "?updateMask.fieldPaths=lastBatteryReplacementDate";
+             + "?updateMask.fieldPaths=lastBatteryReplacementDate"
+             + "&updateMask.fieldPaths=canFinancialTransactions"
+             + "&updateMask.fieldPaths=visaType";
 
-  if (!https.begin(client, url)) {
-    Serial.println("[FS-PATCH] https.begin failed");
-    return false;
-  }
+  if (!https.begin(client, url)) return false;
 
   https.addHeader("Authorization", "Bearer " + g_idToken);
   https.addHeader("Content-Type", "application/json");
 
-  StaticJsonDocument<256> root;
+  StaticJsonDocument<512> root;
   JsonObject fields = root.createNestedObject("fields");
+
   fields["lastBatteryReplacementDate"]["integerValue"] = String(lastRep);
+  fields["canFinancialTransactions"]["booleanValue"] = true;
+  fields["visaType"]["stringValue"] = visaTypeOriginal;
 
   String body;
   serializeJson(root, body);
 
   int code = https.sendRequest("PATCH", (uint8_t*)body.c_str(), body.length());
-  String resp = https.getString();
   https.end();
 
-  Serial.printf("[FS-PATCH] lastBatteryReplacementDate -> HTTP %d\n", code);
-  if (code != 200) {
-    Serial.println(resp);
-    return false;
-  }
-  return true;
+  return (code == 200);
 }
 
 // Battery percentage calcualation
@@ -681,13 +683,13 @@ void drawMemberInfo(const MemberInfo &m) {
   if (!m.loaded) {
     gfx->setTextColor(COLOR_TEXT_DIM);
     gfx->setCursor(x, y);
-    gfx->print("Tap Replacement tag");
+    gfx->print("Tag your battery");
 
     gfx->setCursor(x, y + 16);
-    gfx->print("to start ID check");
+    gfx->print("to start an identification");
 
     gfx->setCursor(x, y + 32);
-    gfx->print("(Step 1: ID)");
+    gfx->print("(Step 1: Identification)");
 
     gfx->setFont();
     return;
@@ -1355,20 +1357,20 @@ void handleNFC() {
             if (nowT > 0) {
               int32_t lastRep = (int32_t)nowT;
 
-              if (firestorePatchLastReplacementDate(currentMember.docPath, lastRep)) {
-                Serial.println("[Replacement] Firestore lastReplacementDate updated");
+              if (firestorePatchAfterReplacement(
+                        currentMember.docPath,
+                        lastRep,
+                        currentMember.visaTypeOriginal
+                  )) {
+                    currentMember.lastBatteryUnix = lastRep;
+                    currentMember.canFinancial = true;
+                    currentMember.visaType = currentMember.visaTypeOriginal;
 
-                currentMember.lastBatteryUnix = lastRep;
-
-                g_dbUpdateSuccess = true;
-                g_dbLastRepNew    = lastRep;
-
-
-                String realDate = unixToMDY(lastRep);
-                g_lastNFCStatus = "DB OK";
-                Serial.print("[Replacement] DB OK date=");
-                Serial.println(realDate);
-              } else {
+                    g_dbUpdateSuccess = true;
+                    g_dbLastRepNew    = lastRep;
+                    g_lastNFCStatus   = "DB OK";
+                    renderGFXScreen();
+                  } else {
                 Serial.println("[Replacement] Firestore update failed");
                 g_dbUpdateSuccess = false;
                 g_lastNFCStatus   = "DB update failed";
