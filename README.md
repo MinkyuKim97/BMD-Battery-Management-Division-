@@ -1,7 +1,8 @@
 # BMD (Battery Management Division)
 ## Project Main Idea
 ```
-BMD (Battery Management Division) is a project that imagines a battery-future based possible dystopian.
+BMD (Battery Management Division) is a project 
+that imagines a battery-future based possible dystopian.
 ```
 In this distant future, batteries have evolved to a level that is far stronger, faster, safer, lighter, and smaller than anything we can imagine today. As a result, ultra-small and ultra-powerful batteries have become commercialized, and they can even be implanted inside the human body. At first, this technology creates an Utopian vision by helping humanity overcome disabilities (such as joint reinforcement or neural stimulation to help people recover from paralysis) and offering a better life. However, the government soon pushes citizens, whose productivity has increased thanks to these batteries, into an extreme competitive system. People live in a society where they continuously use and replace their body-implanted batteries under government control.
 
@@ -9,7 +10,8 @@ The department that manages this system is the BMD. It monitors every citizen’
 
 ## Project Idea Building Process
 ```
-This project began with a simple question: “What kind of technology will play the most essential role in the future?”
+This project began with a simple question:
+“What kind of technology will play the most essential role in the future?”
 ```
 I had heard that the development of mobile devices (AR glasses, compact VR headsets, high-performance multi-display smartphones, etc.) is often limited by battery technology. The high-speed and high-performance technologies already exist, but scaling them down into mobile form always depends on battery performance. Because of this, I strongly believe that the development of batteries is one of our most important future goals for technological progress.
 
@@ -80,7 +82,9 @@ There are two directions I want to focus on:
 2. Expanding the scale of the installation.
     
     The current hardware installation is miniature-sized. If the machine were larger, louder, and more mechanical, it would create a stronger sense of intimidation and better express the dystopian world. The limitation of scale is something I still want to improve.
-
+3. Auto-setting the last battery replacement date
+    
+    Current Battery percentage is based on the 'Last Replacement Date' and 'Battery Due Date'. And 'Battery Due Date' is always depends on 'Last Replacement Date'. It mean, experiences are coming from the Last Replacement Date, and currently, I'm asking users to set it up manually. It has to be automatic for instant world diving.
 ---
 ---
 ---
@@ -88,14 +92,13 @@ There are two directions I want to focus on:
 ## Webpage side
 1. Participants submit their data via Google Form
 2. Owner(myself) import that data into the Firestore database
-3. Connect Github repo page with Firestore database
-4. Import the participant's name or read the localstorage
-5. Redner the infomations depends on the participant's name
-6. Webpage will keep update the current states
-7. If the participants receive the battery replacement order, go to the BMD replacement facility(the hardware installation)
+3. Connect BMD website with Firestore database
+4. Render the infomations depends on the participant's name
+5. Webpage will keep update the current states
+6. If the participants receive the battery replacement order, go to the BMD replacement facility(the hardware installation)
 ## Hardware side
 1. Put the right hand(battery holder attached) on the hand area
-2. Press 'start' on the display panel
+2. Press the display panel
 3. It reads the NFC tag info and indentify who the current participant is
 4. If that participant needs to replace the battery, it proceed the replacement protocol
 5. After the replacement, it automatically update your battery state on the database
@@ -112,6 +115,12 @@ https://www.lcdwiki.com/3.5inch_ESP32-32E_Display
 1. Arduino_GFX_Library by moon on our nation
 2. XPT2046_TouchScreen by Paul Stoffregen
 3. U8g2 by oliver
+4. Wifi.h
+5. wifiClientSecure.h
+6. HTTPClient.h
+7. ArduinoJSON.h
+8. time.h 
+9. Adafruit_PN532.h
 
 ### Board Manager
 
@@ -133,4 +142,27 @@ https://www.lcdwiki.com/3.5inch_ESP32-32E_Display
 [https://docs.rs/u8g2-fonts/latest/u8g2_fonts/fonts/index.html]
 
 ex) gfx->setFont(u8g2_font_ncenB14_tr);
+
+
+## Arduino Nano
+### Board Info
+https://store-usa.arduino.cc/products/arduino-nano?srsltid=AfmBOoph8_jaY7GA4x4YalveqywXhIOc4ZPMNN2wL61ehyn3vaXQgZqM
+### Library Manager
+1. servo.h
+
+## Required components
+1. MG90S micro servo *4
+2. HD2012MG 20kg torque servo *1
+3. PN532, NFC read/write module
+4. DWEII 5V 2A Boost converter step-up power module
+https://www.amazon.com/DWEII-Converter-Step-Up-Charging-Protection/dp/B09YD5C9QC/ref=sr_1_1?crid=1AQJNA309ITD6&dib=eyJ2IjoiMSJ9.GdNo_phsI2OuZGcp-_1fB8clrD2_0A4DXJOqlBal_xsrF-rlnfATXEFXYxool1x_GiZzn1N25lo8rz4Wn-l3brAk6V2FFbHjCr9huorcoZB1NHHgzixeXh2_jeI0l2SxpjxaRVcbLJoa-9fyyrDKP4rdCgkBw6aB8mas9F7oaokCva9pryr0SyG0PAsLd_XkgE6WIUevyF6O8haU4r1qNQMp5xCHS-nGCoQHaRLNqG8.NaaNpwTKzkVw3mE5SG-SfCtMk2DK4GvDurs2Vnj3W8w&dib_tag=se&keywords=deii%2Bcharging%2Bmodule&qid=1765661881&sprefix=dei%2Bcharging%2Bmodule%2Caps%2C114&sr=8-1&th=1
+5. 3.7v Lithium Polymor battery *1
+6. AA 1.5v battery *4
+
+### API Key/Personal Info management
+```
+secret.h
+```
+Using 'secret.h' to manage every sensitive information.
+Such as WIFI SSID and Password/Firebase API key.
 
