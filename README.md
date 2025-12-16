@@ -2,14 +2,26 @@
 ## [Demo video]
 [![BMD Replacement Facility Video](https://img.youtube.com/vi/nqYUuZSCHp4/maxresdefault.jpg)](https://www.youtube.com/watch?v=nqYUuZSCHp4)
 
-## Project Main Idea
+## Project Description
 ```
-BMD (Battery Management Division) is a project 
-that imagines a battery-future based possible dystopian.
+BMD (Battery Management Division)
+Manages citizens’ battery use and replacement
 ```
-In this distant future, batteries have evolved to a level that is far stronger, faster, safer, lighter, and smaller than anything we can imagine today. As a result, ultra-small and ultra-powerful batteries have become commercialized, and they can even be implanted inside the human body. At first, this technology creates an Utopian vision by helping humanity overcome disabilities (such as joint reinforcement or neural stimulation to help people recover from paralysis) and offering a better life. However, the government soon pushes citizens, whose productivity has increased thanks to these batteries, into an extreme competitive system. People live in a society where they continuously use and replace their body-implanted batteries under government control.
+“ We maintain your battery in the safest and most reliable  way for both productivity and the well-being of every citizen.”
 
-The department that manages this system is the BMD. It monitors every citizen’s battery level and usage patterns. To the government, the batteries are more important than the people, so citizens must always visit BMD facilities to replace their batteries. If they refuse, penalties such as restricted electronic device usage, blocked transaction, and suspended visas or passports are imposed. In this future, you must regularly visit the BMD and replace your battery to maintain a normal life and continue contributing your productivity to the government.
+As battery technology continues to advance, it is imagined that an **“Ultimate Battery”** will eventually emerge. It is advanced enough to be implanted into the human body.
+(Stronger, lighter, smaller, and safer)
+
+**UTOPIA**, such a battery could assist joint movement or support recovery and rehabilitation.
+
+->
+**DYSTOPIA**, the nation/government will start to manage increased individual productivity powered by batteries.
+
+With the emergence of **BMD**, all citizens’ battery will be monitored and controlled. If any citizen doesn’t follow BMD’s replacement order, they will get a penalty
+
+—
+
+This project presents **a dystopian experience** by visualizing how BMD manages citizens’ battery data and enforces the replacement process through the database and facility.
 
 ## Project Idea Building Process
 ```
@@ -37,11 +49,11 @@ Whether the community wins or loses becomes another imagined future. Through the
 ### BMD Database (Webpage Side)
 The BMD website monitors both your own battery status and the status of other users. Here, you can check annoucned replacement orders and any penalties applied to your account. A panel at the top shows your battery information, while the lower section shows the tendency trends of other users.
 
-## BMD Replacement Facility (Hardware Installation)
+### BMD Replacement Facility (Hardware Installation)
 
 This is the physical BMD replacement facility that replaces participant's batteries. When a participant receives a replacement order, they must tag their battery at the hardware to identify themselves. The participant places their battery-holding hand into an assigned area, and the machine automatically removes the old battery and installs a new one.
 
-As a participatory artwork, the installation requires the following from all participants:
+As a participatory project, the installation requires the following from all participants:
 
 1. Submit personal data: name, date of birth, visa status, and activity tendency(Are you hardworker? Or not).
 2. Wear the battery holder on their hand.
@@ -51,13 +63,11 @@ Based on this information, the BMD system determines when the participant must r
 
 
 ## Project Aesthetic/Technology
-### Website
+### BMD Database Website
 
 The website is designed to feel like a government platform, clean, minimal, and clearly organized. Because the BMD site focuses on delivering information, I avoid unnecessary decoration.
 
-The site is built with React. It uses LocalStorage to track previous visits and loads data that matches the user’s name. React was the best choice because it allows real-time updates based on other users’ data.
-
-The database uses Firebase Firestore. Given the project scale, Firestore handles the data comfortably and makes it easy to detect changes in user data and display updates instantly.
+The database uses Firebase Firestore. Firestore handles the data comfortably and makes it easy to detect changes in user data and display updates instantly.
 
 ### Hardware Installation
 
@@ -76,16 +86,16 @@ I intentionally divided the hardware into multiple stages. Technically, a simple
 
 ## Future of This Project (What’s Next?)
 
-There are two directions I want to focus on:
+There are three directions I want to focus on:
 
-1. Making the penalties more real.
+1. **Making the penalties more real.**
     
     Currently, penalties only appear as text on the website. They do not create any real inconvenience to the participant. To fully express the dystopian feature, the project needs a more physical or emotional sense of penalty. I feel the current version doesn't solve this issue enough.
     
-2. Expanding the scale of the installation.
+2. **Expanding the scale of the installation.**
     
     The current hardware installation is miniature-sized. If the installation was larger, louder, and more mechanical, it would create a stronger sense of intimidation and better express the dystopian world. The limitation of scale is something I still need to improve.
-3. Auto-setting the last battery replacement date
+3. **Auto-setting the last battery replacement date**
     
     Current Battery percentage is based on the 'Last Replacement Date' and 'Battery Due Date'. And 'Battery Due Date' is always depends on 'Last Replacement Date'. It means, experiences are coming from the Last Replacement Date, and currently, I'm asking participants to set it up manually. It has to be automatic for instant world diving.
 ---
