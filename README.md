@@ -1,6 +1,5 @@
 # BMD (Battery Management Division)
-<iframe src="https://www.youtube.com/watch?v=nqYUuZSCHp4" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-
+[![BMD Replacement Facility Video](https://img.youtube.com/vi/nqYUuZSCHp4/0.jpg)](https://www.youtube.com/watch?v=nqYUuZSCHp4)
 
 ## Project Main Idea
 ```
