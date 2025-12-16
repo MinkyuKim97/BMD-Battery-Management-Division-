@@ -1,5 +1,10 @@
+
 import "../style.css";
 import { useEffect, useMemo, useState } from "react";
+// Firestore database API key management
+// => .env contains API keys
+// Github repo contains '.env.example'
+// replace '.env.example' contents with your Firestore database API keys
 import { db } from "../firebaseConfig.js";
 import {
   collection,
