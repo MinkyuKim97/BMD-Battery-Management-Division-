@@ -1,4 +1,7 @@
 # BMD (Battery Management Division)
+<iframe src="https://www.youtube.com/watch?v=nqYUuZSCHp4" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+
+
 ## Project Main Idea
 ```
 BMD (Battery Management Division) is a project 
